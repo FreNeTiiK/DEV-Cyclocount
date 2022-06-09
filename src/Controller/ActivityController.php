@@ -50,6 +50,18 @@ class ActivityController extends AbstractFOSRestController
     }
 
     /**
+     * @Route("/{activity}", methods={"PUT"})
+     * @ParamConverter("newActivity", class="App\Entity\RequestBody\NewActivity", converter="fos_rest.request_body")
+     */
+    public function updateActivity(ActivityBusiness $activityBusiness, Activity $activity, NewActivity $newActivity)
+    {
+        $activityBusiness->updateActivity($activity, $newActivity);
+
+        $view = $this->view();
+        return $this->handleView($view);
+    }
+
+    /**
      * @Route("/{user}", methods={"GET"})
      */
     public function getActivityByUser(ActivityBusiness $activityBusiness, User $user)

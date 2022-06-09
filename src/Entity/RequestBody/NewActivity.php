@@ -27,13 +27,13 @@ class NewActivity
 
     /**
      * @Serializer\Expose()
-     * @Serializer\Type("DateTime<'H:i:s'>")
+     * @Serializer\Type("DateTime<'Y-m-d H:i:s'>")
      */
     private $departureTime;
 
     /**
      * @Serializer\Expose()
-     * @Serializer\Type("DateTime<'H:i:s'>")
+     * @Serializer\Type("DateTime<'Y-m-d H:i:s'>")
      */
     private $arrivalTime;
 

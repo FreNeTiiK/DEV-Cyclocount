@@ -62,6 +62,25 @@ class ActivityBusiness
         return $activity;
     }
 
+    public function updateActivity(Activity $activity, NewActivity $updtActivity): Activity
+    {
+        $user = $this->userRepository->find($updtActivity->getUserId());
+        $activity->setTitle($updtActivity->getTitle());
+        $activity->setDescription($updtActivity->getDescription());
+        $activity->setDepartureTime($updtActivity->getDepartureTime());
+        $activity->setArrivalTime($updtActivity->getArrivalTime());
+        $activity->setSpeedAverage($updtActivity->getSpeedAverage());
+        $activity->setSpeedMax($updtActivity->getSpeedMax());
+        $activity->setHeightDifference($updtActivity->getHeightDifference());
+        $activity->setPowerAverage($updtActivity->getPowerAverage());
+        $activity->setCaloriesConsumed($updtActivity->getCaloriesConsumed());
+        $activity->setUserLink($user);
+        $this->em->persist($activity);
+
+        $this->em->flush();
+        return $activity;
+    }
+
     public function delActivity(Activity $activity): void
     {
         $this->em->remove($activity);
