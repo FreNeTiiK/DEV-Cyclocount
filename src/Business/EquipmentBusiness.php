@@ -6,6 +6,7 @@ namespace App\Business;
 
 use App\Entity\Equipment;
 use App\Entity\RequestBody\NewEquipment;
+use App\Entity\User;
 use App\Repository\EquipmentRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,6 +32,11 @@ class EquipmentBusiness
     public function getEquipments(): array
     {
         return $this->equipmentRepository->findAll();
+    }
+
+    public function getEquipmentsByUser(User $user): array
+    {
+        return $this->equipmentRepository->findBy(['userLink' => $user]);
     }
 
     public function addEquipment(NewEquipment $newEquipment): Equipment

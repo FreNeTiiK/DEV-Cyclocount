@@ -8,6 +8,7 @@ use App\Entity\Activity;
 use App\Entity\Equipment;
 use App\Entity\RequestBody\NewActivity;
 use App\Entity\RequestBody\NewEquipment;
+use App\Entity\User;
 use App\Repository\ActivityRepository;
 use App\Repository\EquipmentRepository;
 use App\Repository\UserRepository;
@@ -34,6 +35,11 @@ class ActivityBusiness
     public function getActivity(): array
     {
         return $this->activityRepository->findAll();
+    }
+
+    public function getActivityByUser(User $user): array
+    {
+        return $this->activityRepository->findBy(['userLink' => $user]);
     }
 
     public function addActivity(NewActivity $newActivity): Activity

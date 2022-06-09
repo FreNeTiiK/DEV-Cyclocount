@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Business\EquipmentBusiness;
 use App\Entity\Equipment;
 use App\Entity\RequestBody\NewEquipment;
+use App\Entity\User;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -20,6 +21,17 @@ class EquipmentController extends AbstractFOSRestController
     public function getEquipments(EquipmentBusiness $equipmentBusiness)
     {
         $equipments = $equipmentBusiness->getEquipments();
+
+        $view = $this->view($equipments);
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Route("/{user}", methods={"GET"})
+     */
+    public function getEquipmentsByUser(EquipmentBusiness $equipmentBusiness, User $user)
+    {
+        $equipments = $equipmentBusiness->getEquipmentsByUser($user);
 
         $view = $this->view($equipments);
         return $this->handleView($view);

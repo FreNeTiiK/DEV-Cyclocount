@@ -6,6 +6,7 @@ namespace App\Business;
 
 use App\Entity\AnnualObjective;
 use App\Entity\RequestBody\NewAnnualObjective;
+use App\Entity\User;
 use App\Repository\AnnualObjectiveRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,6 +32,11 @@ class AnnualObjectiveBusiness
     public function getAnnualObjectives(): array
     {
         return $this->annualObjectiveRepository->findAll();
+    }
+
+    public function getAnnualObjectivesByUser(User $user): array
+    {
+        return $this->annualObjectiveRepository->findBy(['userLink' => $user]);
     }
 
     public function addAnnualObjective(NewAnnualObjective $newAnnualObjective): AnnualObjective

@@ -16,7 +16,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity->setTitle('The Grand Tour');
         $activity->setDescription('Tour sympatique hfozejidkpazdfjzmk');
         $activity->setArrivalTime(new \DateTime('14:00:00'));
-        $activity->setDepartureTime(new \DateTime('12:00:00'));
+        $activity->setDepartureTime(new \DateTime('12:05:22'));
         $activity->setSpeedAverage(27.00);
         $activity->setSpeedMax(47.00);
         $activity->setHeightDifference(150);
@@ -29,7 +29,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity->setTitle('The Petit Tour');
         $activity->setDescription('Petit Tour sympatique hfozejidkpazdfjzmk');
         $activity->setArrivalTime(new \DateTime('18:00:00'));
-        $activity->setDepartureTime(new \DateTime('14:00:00'));
+        $activity->setDepartureTime(new \DateTime('14:30:00'));
         $activity->setSpeedAverage(22.00);
         $activity->setSpeedMax(42.00);
         $activity->setHeightDifference(350);

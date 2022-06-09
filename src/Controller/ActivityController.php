@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Business\ActivityBusiness;
 use App\Entity\Activity;
 use App\Entity\RequestBody\NewActivity;
+use App\Entity\User;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -48,4 +49,14 @@ class ActivityController extends AbstractFOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     * @Route("/{user}", methods={"GET"})
+     */
+    public function getActivityByUser(ActivityBusiness $activityBusiness, User $user)
+    {
+        $activity = $activityBusiness->getActivityByUser($user);
+
+        $view = $this->view($activity);
+        return $this->handleView($view);
+    }
 }

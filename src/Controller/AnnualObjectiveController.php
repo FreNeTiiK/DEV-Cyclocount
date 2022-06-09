@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Business\AnnualObjectiveBusiness;
 use App\Entity\AnnualObjective;
 use App\Entity\RequestBody\NewAnnualObjective;
+use App\Entity\User;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -20,6 +21,17 @@ class AnnualObjectiveController extends AbstractFOSRestController
     public function getAnnualObjectives(AnnualObjectiveBusiness $annualObjectiveBusiness)
     {
         $annualObjectives = $annualObjectiveBusiness->getAnnualObjectives();
+
+        $view = $this->view($annualObjectives);
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Route("/{user}", methods={"GET"})
+     */
+    public function getAnnualObjectivesByUser(AnnualObjectiveBusiness $annualObjectiveBusiness, User $user)
+    {
+        $annualObjectives = $annualObjectiveBusiness->getAnnualObjectivesByUser($user);
 
         $view = $this->view($annualObjectives);
         return $this->handleView($view);
