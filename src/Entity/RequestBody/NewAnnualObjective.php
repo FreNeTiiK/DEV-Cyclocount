@@ -33,6 +33,14 @@ class NewAnnualObjective
      * @Assert\NotNull
      * @Assert\NotBlank()
      */
+    private $typeObjectiveId;
+
+    /**
+     * @Serializer\Expose()
+     * @Serializer\Type("integer")
+     * @Assert\NotNull
+     * @Assert\NotBlank()
+     */
     private $userId;
 
     /**
@@ -83,5 +91,19 @@ class NewAnnualObjective
         $this->quantity = $quantity;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTypeObjectiveId()
+    {
+        return $this->typeObjectiveId;
+    }
 
+    /**
+     * @param mixed $typeObjectiveId
+     */
+    public function setTypeObjectiveId($typeObjectiveId): void
+    {
+        $this->typeObjectiveId = $typeObjectiveId;
+    }
 }

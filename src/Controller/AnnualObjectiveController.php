@@ -50,6 +50,21 @@ class AnnualObjectiveController extends AbstractFOSRestController
     }
 
     /**
+     * @Route("/{annualObjective}", methods={"PUT"})
+     * @ParamConverter("newAnnualObjective", class="App\Entity\RequestBody\NewAnnualObjective", converter="fos_rest.request_body")
+     */
+    public function updateAnnualObjective(
+        AnnualObjectiveBusiness $annualObjectiveBusiness,
+        AnnualObjective $annualObjective,
+        NewAnnualObjective $newAnnualObjective
+    ) {
+        $annualObjective = $annualObjectiveBusiness->updateAnnualObjective($annualObjective, $newAnnualObjective);
+
+        $view = $this->view($annualObjective);
+        return $this->handleView($view);
+    }
+
+    /**
      * @Route("/{annualObjective}", methods={"DELETE"})
      */
     public function delAnnualObjective(AnnualObjectiveBusiness $annualObjectiveBusiness, AnnualObjective $annualObjective)

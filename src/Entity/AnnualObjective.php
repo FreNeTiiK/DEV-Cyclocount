@@ -28,6 +28,11 @@ class AnnualObjective
     private $quantity;
 
     /**
+     * @ORM\ManyToOne(targetEntity=TypeObjective::class)
+     */
+    private $typeObjective;
+
+    /**
      * @ORM\ManyToOne(targetEntity=User::class)
      */
     private $userLink;
@@ -57,6 +62,18 @@ class AnnualObjective
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getTypeObjective(): ?TypeObjective
+    {
+        return $this->typeObjective;
+    }
+
+    public function setTypeObjective(?TypeObjective $typeObjective): self
+    {
+        $this->typeObjective = $typeObjective;
 
         return $this;
     }

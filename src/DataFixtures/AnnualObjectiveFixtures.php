@@ -15,12 +15,14 @@ class AnnualObjectiveFixtures extends Fixture implements DependentFixtureInterfa
         $annualObj = new AnnualObjective();
         $annualObj->setName('Km annuels');
         $annualObj->setQuantity(1500);
+        $annualObj->setTypeObjective($this->getReference('km'));
         $annualObj->setUserLink($this->getReference('Simon'));
         $manager->persist($annualObj);
 
         $annualObj = new AnnualObjective();
         $annualObj->setName('Vitesse Moyenne');
         $annualObj->setQuantity(27);
+        $annualObj->setTypeObjective($this->getReference('vit'));
         $annualObj->setUserLink($this->getReference('Simon'));
         $manager->persist($annualObj);
 
@@ -28,10 +30,11 @@ class AnnualObjectiveFixtures extends Fixture implements DependentFixtureInterfa
 
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return array(
-            UserFixtures::class
+            UserFixtures::class,
+            TypeObjectiveFixtures::class
         );
     }
 }
