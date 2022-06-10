@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5105d18d-5990-4dfe-aaf1-6b2be19e53af" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Business/ActivityBusiness.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Business/ActivityBusiness.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/ActivityFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/ActivityFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/EquipmentFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/EquipmentFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Activity.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Activity.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/RequestBody/NewActivity.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/RequestBody/NewActivity.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Business/EquipmentBusiness.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Business/EquipmentBusiness.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/EquipmentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EquipmentController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +174,7 @@
       <workItem from="1654514386961" duration="19111000" />
       <workItem from="1654713574733" duration="2688000" />
       <workItem from="1654801383923" duration="3184000" />
-      <workItem from="1654812657281" duration="18939000" />
+      <workItem from="1654812657281" duration="22414000" />
     </task>
     <servers />
   </component>

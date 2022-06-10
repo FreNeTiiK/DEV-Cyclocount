@@ -50,6 +50,18 @@ class EquipmentController extends AbstractFOSRestController
     }
 
     /**
+     * @Route("/{equipment}", methods={"PUT"})
+     * @ParamConverter("newEquipment", class="App\Entity\RequestBody\NewEquipment", converter="fos_rest.request_body")
+     */
+    public function updateEquipment(EquipmentBusiness $equipmentBusiness, Equipment $equipment, NewEquipment $newEquipment)
+    {
+        $equipment = $equipmentBusiness->updateEquipment($equipment, $newEquipment);
+
+        $view = $this->view($equipment);
+        return $this->handleView($view);
+    }
+
+    /**
      * @Route("/{equipment}", methods={"DELETE"})
      */
     public function delEquipment(EquipmentBusiness $equipmentBusiness, Equipment $equipment)

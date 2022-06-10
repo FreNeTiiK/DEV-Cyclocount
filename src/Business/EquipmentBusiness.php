@@ -42,7 +42,19 @@ class EquipmentBusiness
     public function addEquipment(NewEquipment $newEquipment): Equipment
     {
         $user = $this->userRepository->find($newEquipment->getUserId());
+
         $equipment = new Equipment();
+        $equipment->setName($newEquipment->getName());
+        $equipment->setUserLink($user);
+        $this->em->persist($equipment);
+        $this->em->flush();
+        return $equipment;
+    }
+
+    public function updateEquipment(Equipment $equipment, NewEquipment $newEquipment): Equipment
+    {
+        $user = $this->userRepository->find($newEquipment->getUserId());
+
         $equipment->setName($newEquipment->getName());
         $equipment->setUserLink($user);
         $this->em->persist($equipment);
