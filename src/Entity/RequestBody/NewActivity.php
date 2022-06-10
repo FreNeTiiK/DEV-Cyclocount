@@ -77,6 +77,14 @@ class NewActivity
      * @Assert\NotNull
      * @Assert\NotBlank()
      */
+    private $equipmentId;
+
+    /**
+     * @Serializer\Expose()
+     * @Serializer\Type("integer")
+     * @Assert\NotNull
+     * @Assert\NotBlank()
+     */
     private $userId;
 
     /**
@@ -226,6 +234,22 @@ class NewActivity
     /**
      * @return mixed
      */
+    public function getEquipmentId()
+    {
+        return $this->equipmentId;
+    }
+
+    /**
+     * @param mixed $equipmentId
+     */
+    public function setEquipmentId($equipmentId): void
+    {
+        $this->equipmentId = $equipmentId;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getUserId()
     {
         return $this->userId;
@@ -238,5 +262,4 @@ class NewActivity
     {
         $this->userId = $userId;
     }
-
 }

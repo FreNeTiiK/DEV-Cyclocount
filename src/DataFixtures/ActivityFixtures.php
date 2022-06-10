@@ -22,6 +22,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity->setHeightDifference(150);
         $activity->setPowerAverage(90);
         $activity->setCaloriesConsumed(450);
+        $activity->setEquipment($this->getReference('bike'));
         $activity->setUserLink($this->getReference('Simon'));
         $manager->persist($activity);
 
@@ -35,6 +36,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity->setHeightDifference(350);
         $activity->setPowerAverage(70);
         $activity->setCaloriesConsumed(950);
+        $activity->setEquipment($this->getReference('mavic'));
         $activity->setUserLink($this->getReference('Simon'));
         $manager->persist($activity);
 
@@ -43,9 +45,10 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
 
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return array(
+            EquipmentFixtures::class,
             UserFixtures::class
         );
     }

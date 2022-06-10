@@ -63,6 +63,11 @@ class Activity
     private $caloriesConsumed;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Equipment::class)
+     */
+    private $equipment;
+
+    /**
      * @ORM\ManyToOne(targetEntity=User::class)
      */
     private $userLink;
@@ -176,6 +181,18 @@ class Activity
     public function setCaloriesConsumed(?int $caloriesConsumed): self
     {
         $this->caloriesConsumed = $caloriesConsumed;
+
+        return $this;
+    }
+
+    public function getEquipment(): ?Equipment
+    {
+        return $this->equipment;
+    }
+
+    public function setEquipment(?Equipment $equipment): self
+    {
+        $this->equipment = $equipment;
 
         return $this;
     }
