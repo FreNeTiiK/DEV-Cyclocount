@@ -30,6 +30,12 @@ class NewAnnualObjective
     /**
      * @Serializer\Expose()
      * @Serializer\Type("integer")
+     */
+    private $activityTypeId;
+
+    /**
+     * @Serializer\Expose()
+     * @Serializer\Type("integer")
      * @Assert\NotNull
      * @Assert\NotBlank()
      */
@@ -89,6 +95,22 @@ class NewAnnualObjective
     public function setQuantity($quantity): void
     {
         $this->quantity = $quantity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActivityTypeId()
+    {
+        return $this->activityTypeId;
+    }
+
+    /**
+     * @param mixed $activityTypeId
+     */
+    public function setActivityTypeId($activityTypeId): void
+    {
+        $this->activityTypeId = $activityTypeId;
     }
 
     /**

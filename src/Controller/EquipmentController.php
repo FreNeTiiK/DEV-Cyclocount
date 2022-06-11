@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Business\EquipmentBusiness;
+use App\Entity\ActivityType;
 use App\Entity\Equipment;
 use App\Entity\RequestBody\NewEquipment;
+use App\Entity\RequestBody\UpdateEquipment;
 use App\Entity\User;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,11 +29,11 @@ class EquipmentController extends AbstractFOSRestController
     }
 
     /**
-     * @Route("/{user}", methods={"GET"})
+     * @Route("/{user}/{activityType}", methods={"GET"})
      */
-    public function getEquipmentsByUser(EquipmentBusiness $equipmentBusiness, User $user)
+    public function getEquipmentsByUser(EquipmentBusiness $equipmentBusiness, User $user, ?ActivityType $activityType = null)
     {
-        $equipments = $equipmentBusiness->getEquipmentsByUser($user);
+        $equipments = $equipmentBusiness->getEquipmentsByUser($user, $activityType);
 
         $view = $this->view($equipments);
         return $this->handleView($view);
@@ -51,11 +53,11 @@ class EquipmentController extends AbstractFOSRestController
 
     /**
      * @Route("/{equipment}", methods={"PUT"})
-     * @ParamConverter("newEquipment", class="App\Entity\RequestBody\NewEquipment", converter="fos_rest.request_body")
+     * @ParamConverter("updateEquipment", class="App\Entity\RequestBody\UpdateEquipment", converter="fos_rest.request_body")
      */
-    public function updateEquipment(EquipmentBusiness $equipmentBusiness, Equipment $equipment, NewEquipment $newEquipment)
+    public function updateEquipment(EquipmentBusiness $equipmentBusiness, Equipment $equipment, UpdateEquipment $updateEquipment)
     {
-        $equipment = $equipmentBusiness->updateEquipment($equipment, $newEquipment);
+        $equipment = $equipmentBusiness->updateEquipment($equipment, $updateEquipment);
 
         $view = $this->view($equipment);
         return $this->handleView($view);

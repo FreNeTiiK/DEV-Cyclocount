@@ -8,7 +8,6 @@ use Doctrine\Persistence\ObjectManager;
 
 class TypeObjectiveFixtures extends Fixture
 {
-
     public function load(ObjectManager $manager): void
     {
         $typeObj = new TypeObjective();
@@ -27,6 +26,5 @@ class TypeObjectiveFixtures extends Fixture
         $manager->persist($typeObj);
 
         $manager->flush();
-
     }
 }

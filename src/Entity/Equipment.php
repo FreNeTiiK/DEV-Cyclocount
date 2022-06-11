@@ -23,6 +23,11 @@ class Equipment
     private $name;
 
     /**
+     * @ORM\ManyToOne(targetEntity=ActivityType::class)
+     */
+    private $activityType;
+
+    /**
      * @ORM\ManyToOne(targetEntity=User::class)
      */
     private $userLink;
@@ -40,6 +45,18 @@ class Equipment
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getActivityType(): ?ActivityType
+    {
+        return $this->activityType;
+    }
+
+    public function setActivityType(?ActivityType $activityType): self
+    {
+        $this->activityType = $activityType;
 
         return $this;
     }

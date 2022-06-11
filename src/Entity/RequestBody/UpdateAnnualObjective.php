@@ -9,29 +9,35 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @Serializer\ExclusionPolicy("all")
  */
-class NewEquipment
+class UpdateAnnualObjective
 {
     /**
      * @Serializer\Expose()
      * @Serializer\Type("string")
-     * @Assert\NotNull
-     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @Serializer\Expose()
      * @Serializer\Type("integer")
-     * @Assert\NotNull
-     * @Assert\NotBlank()
+     */
+    private $quantity;
+
+    /**
+     * @Serializer\Expose()
+     * @Serializer\Type("integer")
      */
     private $activityTypeId;
 
     /**
      * @Serializer\Expose()
      * @Serializer\Type("integer")
-     * @Assert\NotNull
-     * @Assert\NotBlank()
+     */
+    private $typeObjectiveId;
+
+    /**
+     * @Serializer\Expose()
+     * @Serializer\Type("integer")
      */
     private $userId;
 
@@ -54,6 +60,38 @@ class NewEquipment
     /**
      * @return mixed
      */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @param mixed $userId
+     */
+    public function setUserId($userId): void
+    {
+        $this->userId = $userId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param mixed $quantity
+     */
+    public function setQuantity($quantity): void
+    {
+        $this->quantity = $quantity;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getActivityTypeId()
     {
         return $this->activityTypeId;
@@ -70,18 +108,16 @@ class NewEquipment
     /**
      * @return mixed
      */
-    public function getUserId()
+    public function getTypeObjectiveId()
     {
-        return $this->userId;
+        return $this->typeObjectiveId;
     }
 
     /**
-     * @param mixed $userId
+     * @param mixed $typeObjectiveId
      */
-    public function setUserId($userId): void
+    public function setTypeObjectiveId($typeObjectiveId): void
     {
-        $this->userId = $userId;
+        $this->typeObjectiveId = $typeObjectiveId;
     }
-
-
 }

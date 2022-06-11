@@ -63,6 +63,11 @@ class Activity
     private $caloriesConsumed;
 
     /**
+     * @ORM\ManyToOne(targetEntity=ActivityType::class)
+     */
+    private $activityType;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Equipment::class)
      */
     private $equipment;
@@ -181,6 +186,18 @@ class Activity
     public function setCaloriesConsumed(?int $caloriesConsumed): self
     {
         $this->caloriesConsumed = $caloriesConsumed;
+
+        return $this;
+    }
+
+    public function getActivityType(): ?ActivityType
+    {
+        return $this->activityType;
+    }
+
+    public function setActivityType(?ActivityType $activityType): self
+    {
+        $this->activityType = $activityType;
 
         return $this;
     }

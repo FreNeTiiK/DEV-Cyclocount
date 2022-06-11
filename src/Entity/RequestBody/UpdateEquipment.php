@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @Serializer\ExclusionPolicy("all")
  */
-class NewEquipment
+class UpdateEquipment
 {
     /**
      * @Serializer\Expose()
@@ -22,16 +22,12 @@ class NewEquipment
     /**
      * @Serializer\Expose()
      * @Serializer\Type("integer")
-     * @Assert\NotNull
-     * @Assert\NotBlank()
      */
     private $activityTypeId;
 
     /**
      * @Serializer\Expose()
      * @Serializer\Type("integer")
-     * @Assert\NotNull
-     * @Assert\NotBlank()
      */
     private $userId;
 

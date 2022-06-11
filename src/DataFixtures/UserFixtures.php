@@ -10,10 +10,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserFixtures extends Fixture
 {
     private $encoder;
+
     public function __construct(UserPasswordHasherInterface $encoder)
     {
         $this->encoder = $encoder;
     }
+
     public function load(ObjectManager $manager): void
     {
         $user = new User();
@@ -28,6 +30,5 @@ class UserFixtures extends Fixture
         $manager->persist($user);
 
         $manager->flush();
-
     }
 }

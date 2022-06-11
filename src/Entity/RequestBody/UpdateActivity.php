@@ -9,13 +9,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @Serializer\ExclusionPolicy("all")
  */
-class NewActivity
+class UpdateActivity
 {
     /**
      * @Serializer\Expose()
      * @Serializer\Type("string")
-     * @Assert\NotNull
-     * @Assert\NotBlank()
      */
     private $title;
 
@@ -40,16 +38,12 @@ class NewActivity
     /**
      * @Serializer\Expose()
      * @Serializer\Type("float")
-     * @Assert\NotNull
-     * @Assert\NotBlank()
      */
     private $speedAverage;
 
     /**
      * @Serializer\Expose()
      * @Serializer\Type("float")
-     * @Assert\NotNull
-     * @Assert\NotBlank()
      */
     private $speedMax;
 
@@ -74,8 +68,6 @@ class NewActivity
     /**
      * @Serializer\Expose()
      * @Serializer\Type("integer")
-     * @Assert\NotNull
-     * @Assert\NotBlank()
      */
     private $activityTypeId;
 
@@ -88,8 +80,6 @@ class NewActivity
     /**
      * @Serializer\Expose()
      * @Serializer\Type("integer")
-     * @Assert\NotNull
-     * @Assert\NotBlank()
      */
     private $userId;
 

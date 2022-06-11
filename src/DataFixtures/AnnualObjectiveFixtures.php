@@ -22,18 +22,19 @@ class AnnualObjectiveFixtures extends Fixture implements DependentFixtureInterfa
         $annualObj = new AnnualObjective();
         $annualObj->setName('Vitesse Moyenne');
         $annualObj->setQuantity(27);
+        $annualObj->setActivityType($this->getReference('velo'));
         $annualObj->setTypeObjective($this->getReference('vit'));
         $annualObj->setUserLink($this->getReference('Simon'));
         $manager->persist($annualObj);
 
         $manager->flush();
-
     }
 
     public function getDependencies(): array
     {
         return array(
             UserFixtures::class,
+            ActivityTypeFixtures::class,
             TypeObjectiveFixtures::class
         );
     }

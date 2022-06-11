@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Business\AnnualObjectiveBusiness;
 use App\Entity\AnnualObjective;
 use App\Entity\RequestBody\NewAnnualObjective;
+use App\Entity\RequestBody\UpdateAnnualObjective;
 use App\Entity\User;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,14 +52,14 @@ class AnnualObjectiveController extends AbstractFOSRestController
 
     /**
      * @Route("/{annualObjective}", methods={"PUT"})
-     * @ParamConverter("newAnnualObjective", class="App\Entity\RequestBody\NewAnnualObjective", converter="fos_rest.request_body")
+     * @ParamConverter("updateAnnualObjective", class="App\Entity\RequestBody\UpdateAnnualObjective", converter="fos_rest.request_body")
      */
     public function updateAnnualObjective(
         AnnualObjectiveBusiness $annualObjectiveBusiness,
         AnnualObjective $annualObjective,
-        NewAnnualObjective $newAnnualObjective
+        UpdateAnnualObjective $updateAnnualObjective
     ) {
-        $annualObjective = $annualObjectiveBusiness->updateAnnualObjective($annualObjective, $newAnnualObjective);
+        $annualObjective = $annualObjectiveBusiness->updateAnnualObjective($annualObjective, $updateAnnualObjective);
 
         $view = $this->view($annualObjective);
         return $this->handleView($view);

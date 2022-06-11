@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Business\ActivityBusiness;
 use App\Entity\Activity;
 use App\Entity\RequestBody\NewActivity;
+use App\Entity\RequestBody\UpdateActivity;
 use App\Entity\User;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,11 +52,11 @@ class ActivityController extends AbstractFOSRestController
 
     /**
      * @Route("/{activity}", methods={"PUT"})
-     * @ParamConverter("newActivity", class="App\Entity\RequestBody\NewActivity", converter="fos_rest.request_body")
+     * @ParamConverter("updateActivity", class="App\Entity\RequestBody\UpdateActivity", converter="fos_rest.request_body")
      */
-    public function updateActivity(ActivityBusiness $activityBusiness, Activity $activity, NewActivity $newActivity)
+    public function updateActivity(ActivityBusiness $activityBusiness, Activity $activity, UpdateActivity $updateActivity)
     {
-        $activityBusiness->updateActivity($activity, $newActivity);
+        $activityBusiness->updateActivity($activity, $updateActivity);
 
         $view = $this->view();
         return $this->handleView($view);
