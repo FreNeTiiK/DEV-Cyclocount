@@ -15,14 +15,14 @@ class EquipmentFixtures extends Fixture implements DependentFixtureInterface
         $equipment = new Equipment();
         $equipment->setName('MavicBike');
         $equipment->setActivityType($this->getReference('velo'));
-        $equipment->setUserLink($this->getReference('Simon'));
+        $equipment->setUserLink($this->getReference('simon'));
         $this->addReference('bike', $equipment);
         $manager->persist($equipment);
 
         $equipment = new Equipment();
         $equipment->setName('MavicShooes');
         $equipment->setActivityType($this->getReference('course'));
-        $equipment->setUserLink($this->getReference('Simon'));
+        $equipment->setUserLink($this->getReference('simon'));
         $this->addReference('mavic', $equipment);
         $manager->persist($equipment);
 

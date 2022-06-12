@@ -24,7 +24,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity->setCaloriesConsumed(450);
         $activity->setActivityType($this->getReference('velo'));
         $activity->setEquipment($this->getReference('bike'));
-        $activity->setUserLink($this->getReference('Simon'));
+        $activity->setUserLink($this->getReference('simon'));
         $manager->persist($activity);
 
         $activity = new Activity();
@@ -39,7 +39,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity->setCaloriesConsumed(950);
         $activity->setActivityType($this->getReference('course'));
         $activity->setEquipment($this->getReference('mavic'));
-        $activity->setUserLink($this->getReference('Simon'));
+        $activity->setUserLink($this->getReference('simon'));
         $manager->persist($activity);
 
         $manager->flush();
