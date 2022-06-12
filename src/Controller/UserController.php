@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Business\UserBusiness;
 use App\Entity\RequestBody\ChangePasswordUser;
+use App\Entity\RequestBody\NewUser;
 use App\Entity\RequestBody\UpdateUser;
 use App\Entity\User;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -23,6 +24,17 @@ class UserController extends AbstractFOSRestController
         $user = $userBusiness->getUserByUsername($username);
 
         $view = $this->view($user);
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Route("/checkUsername/{username}", methods={"GET"})
+     */
+    public function checkUsername(UserBusiness $userBusiness, string $username)
+    {
+        $usernameExists = $userBusiness->checkUsername($username);
+
+        $view = $this->view($usernameExists);
         return $this->handleView($view);
     }
 
