@@ -56,11 +56,6 @@ class ActivityBusiness
 
     public function addActivity(NewActivity $newActivity): Activity
     {
-        $user = $this->userRepository->find($newActivity->getUserId());
-        $equipment = $this->equipmentRepository->find($newActivity->getEquipmentId());
-        $activityType = $this->activityTypeRepository->find($newActivity->getActivityTypeId());
-        $difficulty = $this->difficultyRepository->find($newActivity->getDifficultyId());
-
         $activity = new Activity();
         $activity->setTitle($newActivity->getTitle());
         $activity->setDescription($newActivity->getDescription());
@@ -72,10 +67,22 @@ class ActivityBusiness
         $activity->setHeightDifference($newActivity->getHeightDifference());
         $activity->setPowerAverage($newActivity->getPowerAverage());
         $activity->setCaloriesConsumed($newActivity->getCaloriesConsumed());
-        $activity->setActivityType($activityType);
-        $activity->setEquipment($equipment);
-        $activity->setDifficulty($difficulty);
-        $activity->setUserLink($user);
+        if ($newActivity->getActivityTypeId() !== null) {
+            $activityType = $this->activityTypeRepository->find($newActivity->getActivityTypeId());
+            $activity->setActivityType($activityType);
+        }
+        if ($newActivity->getEquipmentId() !== null) {
+            $equipment = $this->equipmentRepository->find($newActivity->getEquipmentId());
+            $activity->setEquipment($equipment);
+        }
+        if ($newActivity->getDifficultyId() !== null) {
+            $difficulty = $this->difficultyRepository->find($newActivity->getDifficultyId());
+            $activity->setDifficulty($difficulty);
+        }
+        if ($newActivity->getUserId() !== null) {
+            $user = $this->userRepository->find($newActivity->getUserId());
+            $activity->setUserLink($user);
+        }
         $this->em->persist($activity);
         $this->em->flush();
 
@@ -103,7 +110,7 @@ class ActivityBusiness
             $equipment = $this->equipmentRepository->find($updtActivity->getEquipmentId());
             $activity->setEquipment($equipment);
         }
-        if ($updtActivity->getEquipmentId() !== null) {
+        if ($updtActivity->getDifficultyId() !== null) {
             $difficulty = $this->difficultyRepository->find($updtActivity->getDifficultyId());
             $activity->setDifficulty($difficulty);
         }

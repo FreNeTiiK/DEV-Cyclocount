@@ -145,7 +145,7 @@ class Activity
         return $this->distance;
     }
 
-    public function setDistance(float $distance): self
+    public function setDistance(?float $distance): self
     {
         $this->distance = $distance;
 
@@ -157,7 +157,7 @@ class Activity
         return $this->speedAverage;
     }
 
-    public function setSpeedAverage(float $speedAverage): self
+    public function setSpeedAverage(?float $speedAverage): self
     {
         $this->speedAverage = $speedAverage;
 
@@ -169,7 +169,7 @@ class Activity
         return $this->speedMax;
     }
 
-    public function setSpeedMax(float $speedMax): self
+    public function setSpeedMax(?float $speedMax): self
     {
         $this->speedMax = $speedMax;
 
