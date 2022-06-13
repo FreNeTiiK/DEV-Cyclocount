@@ -3,11 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="5105d18d-5990-4dfe-aaf1-6b2be19e53af" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Business/UserBusiness.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Business/UserBusiness.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Business/ActivityBusiness.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Business/ActivityBusiness.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Activity.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Activity.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/RequestBody/NewActivity.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/RequestBody/NewActivity.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/RequestBody/UpdateActivity.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/RequestBody/UpdateActivity.php" afterDir="false" />
     </list>
+    <list id="8148f541-27a6-4f81-8c4b-d697bc76d2c1" name="Changes by Thibault" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -147,6 +148,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
     "last_opened_file_path": "/Users/simonvennat/Documents/Projet_perso/cyclocount/DEV-Cyclocount/src/Controller",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
@@ -176,7 +178,7 @@
       <workItem from="1654514386961" duration="19111000" />
       <workItem from="1654713574733" duration="2688000" />
       <workItem from="1654801383923" duration="3184000" />
-      <workItem from="1654812657281" duration="58532000" />
+      <workItem from="1654812657281" duration="63099000" />
     </task>
     <servers />
   </component>

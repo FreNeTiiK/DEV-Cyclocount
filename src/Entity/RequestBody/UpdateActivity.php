@@ -39,6 +39,12 @@ class UpdateActivity
      * @Serializer\Expose()
      * @Serializer\Type("float")
      */
+    private $distance;
+
+    /**
+     * @Serializer\Expose()
+     * @Serializer\Type("float")
+     */
     private $speedAverage;
 
     /**
@@ -145,6 +151,22 @@ class UpdateActivity
     public function setArrivalTime($arrivalTime): void
     {
         $this->arrivalTime = $arrivalTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDistance()
+    {
+        return $this->distance;
+    }
+
+    /**
+     * @param mixed $distance
+     */
+    public function setDistance($distance): void
+    {
+        $this->distance = $distance;
     }
 
     /**

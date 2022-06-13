@@ -40,16 +40,18 @@ class NewActivity
     /**
      * @Serializer\Expose()
      * @Serializer\Type("float")
-     * @Assert\NotNull
-     * @Assert\NotBlank()
+     */
+    private $distance;
+
+    /**
+     * @Serializer\Expose()
+     * @Serializer\Type("float")
      */
     private $speedAverage;
 
     /**
      * @Serializer\Expose()
      * @Serializer\Type("float")
-     * @Assert\NotNull
-     * @Assert\NotBlank()
      */
     private $speedMax;
 
@@ -155,6 +157,22 @@ class NewActivity
     public function setArrivalTime($arrivalTime): void
     {
         $this->arrivalTime = $arrivalTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDistance()
+    {
+        return $this->distance;
+    }
+
+    /**
+     * @param mixed $distance
+     */
+    public function setDistance($distance): void
+    {
+        $this->distance = $distance;
     }
 
     /**

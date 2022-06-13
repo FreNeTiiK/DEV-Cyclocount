@@ -61,6 +61,7 @@ class ActivityBusiness
         $activity->setDescription($newActivity->getDescription());
         $activity->setDepartureTime($newActivity->getDepartureTime());
         $activity->setArrivalTime($newActivity->getArrivalTime());
+        $activity->setDistance($newActivity->getDistance());
         $activity->setSpeedAverage($newActivity->getSpeedAverage());
         $activity->setSpeedMax($newActivity->getSpeedMax());
         $activity->setHeightDifference($newActivity->getHeightDifference());
@@ -81,6 +82,7 @@ class ActivityBusiness
         $updtActivity->getDescription() === null ?: $activity->setDescription($updtActivity->getDescription());
         $updtActivity->getDepartureTime() === null ?: $activity->setDepartureTime($updtActivity->getDepartureTime());
         $updtActivity->getArrivalTime() === null ?: $activity->setArrivalTime($updtActivity->getArrivalTime());
+        $updtActivity->getDistance() === null ?: $activity->setDistance($updtActivity->getDistance());
         $updtActivity->getSpeedAverage() === null ?: $activity->setSpeedAverage($updtActivity->getSpeedAverage());
         $updtActivity->getSpeedMax() === null ?: $activity->setSpeedMax($updtActivity->getSpeedMax());
         $updtActivity->getHeightDifference() === null ?: $activity->setHeightDifference($updtActivity->getHeightDifference());
