@@ -15,13 +15,13 @@ class DifficultyFixtures extends Fixture
         $difficulty->setName('Facile');
         $manager->persist($difficulty);
 
-        $difficulty2 = new Difficulty();
-        $difficulty2->setName('Normal');
-        $manager->persist($difficulty2);
+        $difficulty = new Difficulty();
+        $difficulty->setName('Normal');
+        $manager->persist($difficulty);
 
-        $difficulty3 = new Difficulty();
-        $difficulty3->setName('Difficile');
-        $manager->persist($difficulty3);
+        $difficulty = new Difficulty();
+        $difficulty->setName('Difficile');
+        $manager->persist($difficulty);
 
         $manager->flush();
     }
