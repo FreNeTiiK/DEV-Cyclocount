@@ -12,6 +12,7 @@ use App\Entity\RequestBody\UpdateActivity;
 use App\Entity\User;
 use App\Repository\ActivityRepository;
 use App\Repository\ActivityTypeRepository;
+use App\Repository\DifficultyRepository;
 use App\Repository\EquipmentRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,6 +23,7 @@ class ActivityBusiness
     private $activityRepository;
     private $equipmentRepository;
     private $activityTypeRepository;
+    private $difficultyRepository;
     private $em;
 
     public function __construct
@@ -29,6 +31,7 @@ class ActivityBusiness
         ActivityRepository $activityRepository,
         EquipmentRepository $equipmentRepository,
         ActivityTypeRepository $activityTypeRepository,
+        DifficultyRepository $difficultyRepository,
         UserRepository $userRepository,
         EntityManagerInterface $em
     )
@@ -36,6 +39,7 @@ class ActivityBusiness
         $this->activityRepository = $activityRepository;
         $this->equipmentRepository = $equipmentRepository;
         $this->activityTypeRepository = $activityTypeRepository;
+        $this->difficultyRepository = $difficultyRepository;
         $this->userRepository = $userRepository;
         $this->em = $em;
     }
@@ -55,6 +59,7 @@ class ActivityBusiness
         $user = $this->userRepository->find($newActivity->getUserId());
         $equipment = $this->equipmentRepository->find($newActivity->getEquipmentId());
         $activityType = $this->activityTypeRepository->find($newActivity->getActivityTypeId());
+        $difficulty = $this->difficultyRepository->find($newActivity->getDifficultyId());
 
         $activity = new Activity();
         $activity->setTitle($newActivity->getTitle());
@@ -69,6 +74,7 @@ class ActivityBusiness
         $activity->setCaloriesConsumed($newActivity->getCaloriesConsumed());
         $activity->setActivityType($activityType);
         $activity->setEquipment($equipment);
+        $activity->setDifficulty($difficulty);
         $activity->setUserLink($user);
         $this->em->persist($activity);
         $this->em->flush();
@@ -96,6 +102,10 @@ class ActivityBusiness
         if ($updtActivity->getEquipmentId() !== null) {
             $equipment = $this->equipmentRepository->find($updtActivity->getEquipmentId());
             $activity->setEquipment($equipment);
+        }
+        if ($updtActivity->getEquipmentId() !== null) {
+            $difficulty = $this->difficultyRepository->find($updtActivity->getDifficultyId());
+            $activity->setDifficulty($difficulty);
         }
         if ($updtActivity->getUserId() !== null) {
             $user = $this->userRepository->find($updtActivity->getUserId());

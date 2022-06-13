@@ -5,7 +5,6 @@ namespace App\Business;
 
 
 use App\Repository\DifficultyRepository;
-use App\Repository\TypeObjectiveRepository;
 
 class DifficultyBusiness
 {

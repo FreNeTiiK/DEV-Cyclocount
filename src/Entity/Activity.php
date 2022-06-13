@@ -50,11 +50,6 @@ class Activity
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $difficulty;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
     private $speedMax;
 
     /**
@@ -85,7 +80,7 @@ class Activity
     /**
      * @ORM\ManyToOne(targetEntity=Difficulty::class)
      */
-    private $difficultyLink;
+    private $difficulty;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)

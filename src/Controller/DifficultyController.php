@@ -3,18 +3,11 @@
 namespace App\Controller;
 
 use App\Business\DifficultyBusiness;
-use App\Business\EquipmentBusiness;
-use App\Entity\ActivityType;
-use App\Entity\Equipment;
-use App\Entity\RequestBody\NewEquipment;
-use App\Entity\RequestBody\UpdateEquipment;
-use App\Entity\User;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
- * @Route("/api/difficulty")
+ * @Route("/api/difficulties")
  */
 class DifficultyController extends AbstractFOSRestController
 {

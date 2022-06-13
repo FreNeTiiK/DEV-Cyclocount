@@ -90,6 +90,12 @@ class NewActivity
     /**
      * @Serializer\Expose()
      * @Serializer\Type("integer")
+     */
+    private $difficultyId;
+
+    /**
+     * @Serializer\Expose()
+     * @Serializer\Type("integer")
      * @Assert\NotNull
      * @Assert\NotBlank()
      */
@@ -285,6 +291,22 @@ class NewActivity
     public function setEquipmentId($equipmentId): void
     {
         $this->equipmentId = $equipmentId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDifficultyId()
+    {
+        return $this->difficultyId;
+    }
+
+    /**
+     * @param mixed $difficultyId
+     */
+    public function setDifficultyId($difficultyId): void
+    {
+        $this->difficultyId = $difficultyId;
     }
 
     /**
