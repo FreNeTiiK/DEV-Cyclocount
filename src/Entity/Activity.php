@@ -40,6 +40,11 @@ class Activity
     /**
      * @ORM\Column(type="float")
      */
+    private $distance;
+
+    /**
+     * @ORM\Column(type="float")
+     */
     private $speedAverage;
 
     /**
@@ -126,6 +131,18 @@ class Activity
     public function setArrivalTime(?\DateTimeInterface $arrivalTime): self
     {
         $this->arrivalTime = $arrivalTime;
+
+        return $this;
+    }
+
+    public function getDistance(): ?float
+    {
+        return $this->distance;
+    }
+
+    public function setDistance(float $distance): self
+    {
+        $this->distance = $distance;
 
         return $this;
     }
