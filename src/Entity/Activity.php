@@ -50,6 +50,11 @@ class Activity
     /**
      * @ORM\Column(type="float", nullable=true)
      */
+    private $difficulty;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
     private $speedMax;
 
     /**
@@ -76,6 +81,11 @@ class Activity
      * @ORM\ManyToOne(targetEntity=Equipment::class)
      */
     private $equipment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Difficulty::class)
+     */
+    private $difficultyLink;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
@@ -227,6 +237,18 @@ class Activity
     public function setEquipment(?Equipment $equipment): self
     {
         $this->equipment = $equipment;
+
+        return $this;
+    }
+
+    public function getDifficulty(): ?Difficulty
+    {
+        return $this->difficulty;
+    }
+
+    public function setDifficulty(?Difficulty $difficulty): self
+    {
+        $this->difficulty = $difficulty;
 
         return $this;
     }
