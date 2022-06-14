@@ -17,6 +17,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity->setDescription('Tour sympatique hfozejidkpazdfjzmk');
         $activity->setArrivalTime(new \DateTime('2022-01-17 14:00:00'));
         $activity->setDepartureTime(new \DateTime('2022-01-17 12:05:22'));
+        $activity->setDistance(528.00);
         $activity->setSpeedAverage(27.00);
         $activity->setSpeedMax(47.00);
         $activity->setHeightDifference(150);
@@ -32,6 +33,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity->setDescription('Petit Tour sympatique hfozejidkpazdfjzmk');
         $activity->setArrivalTime(new \DateTime('2022-01-21 18:00:00'));
         $activity->setDepartureTime(new \DateTime('2022-01-21 14:30:00'));
+        $activity->setDistance(428.00);
         $activity->setSpeedAverage(22.00);
         $activity->setSpeedMax(42.00);
         $activity->setHeightDifference(350);
@@ -47,6 +49,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity->setDescription('Moyen Tour sympatique hfozejidkpazdfjzmk');
         $activity->setArrivalTime(new \DateTime('2022-03-11 18:00:00'));
         $activity->setDepartureTime(new \DateTime('2022-03-11 14:30:00'));
+        $activity->setDistance(328.00);
         $activity->setSpeedAverage(22.00);
         $activity->setSpeedMax(42.00);
         $activity->setHeightDifference(350);
@@ -62,6 +65,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity->setDescription('Giga Tour sympatique hfozejidkpazdfjzmk');
         $activity->setArrivalTime(new \DateTime('2022-02-11 18:00:00'));
         $activity->setDepartureTime(new \DateTime('2022-02-11 14:30:00'));
+        $activity->setDistance(228.00);
         $activity->setSpeedAverage(22.00);
         $activity->setSpeedMax(42.00);
         $activity->setHeightDifference(350);
@@ -77,6 +81,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity->setDescription('Minuscule Tour sympatique hfozejidkpazdfjzmk');
         $activity->setArrivalTime(new \DateTime('2022-01-11 18:00:00'));
         $activity->setDepartureTime(new \DateTime('2022-01-11 14:30:00'));
+        $activity->setDistance(128.00);
         $activity->setSpeedAverage(2.00);
         $activity->setSpeedMax(42.00);
         $activity->setHeightDifference(35);
