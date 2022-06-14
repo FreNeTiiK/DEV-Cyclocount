@@ -129,4 +129,15 @@ class ActivityBusiness
         $this->em->remove($activity);
         $this->em->flush();
     }
+
+    public function getChartKms()
+    {
+        $kilometers = [];
+        $activityTypes = $this->activityTypeRepository->findAll();
+
+        foreach ($activityTypes as $activityType) {
+
+            $kilometers['series'][$activityType->getName()] = ['name' => 'kilomètres', 'data' => $data];
+        }
+    }
 }

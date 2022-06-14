@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Activity;
+use App\Entity\ActivityType;
+use DateTimeZone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @extends ServiceEntityRepository<Activity>
@@ -37,6 +40,18 @@ class ActivityRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findLastActivities(ActivityType $activityType, int $numberLastActivities): array
+    {
+        $now = new DateTime('now', new DateTimeZone('Europe/Paris'));
+
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.activityType = :activityType')
+            ->setMaxResults($numberLastActivities)
+            ->setParameters(['activityType' => $activityType])
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**
