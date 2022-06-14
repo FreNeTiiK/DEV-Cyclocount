@@ -20,10 +20,34 @@ class AnnualObjectiveFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($annualObj);
 
         $annualObj = new AnnualObjective();
-        $annualObj->setName('Vitesse Moyenne');
+        $annualObj->setName('Vitesse Moyenne annuelle');
         $annualObj->setQuantity(27);
         $annualObj->setActivityType($this->getReference('velo'));
         $annualObj->setTypeObjective($this->getReference('vit'));
+        $annualObj->setUserLink($this->getReference('simon'));
+        $manager->persist($annualObj);
+
+        $annualObj = new AnnualObjective();
+        $annualObj->setName('Temps annuel');
+        $annualObj->setQuantity(500);
+        $annualObj->setActivityType($this->getReference('velo'));
+        $annualObj->setTypeObjective($this->getReference('duration'));
+        $annualObj->setUserLink($this->getReference('simon'));
+        $manager->persist($annualObj);
+
+        $annualObj = new AnnualObjective();
+        $annualObj->setName('Denivelé annuel');
+        $annualObj->setQuantity(500);
+        $annualObj->setActivityType($this->getReference('velo'));
+        $annualObj->setTypeObjective($this->getReference('denivele'));
+        $annualObj->setUserLink($this->getReference('simon'));
+        $manager->persist($annualObj);
+
+        $annualObj = new AnnualObjective();
+        $annualObj->setName('Nombres de sorties annuelles');
+        $annualObj->setQuantity(100);
+        $annualObj->setActivityType($this->getReference('velo'));
+        $annualObj->setTypeObjective($this->getReference('sorties'));
         $annualObj->setUserLink($this->getReference('simon'));
         $manager->persist($annualObj);
 
