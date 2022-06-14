@@ -126,8 +126,8 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity = new Activity();
         $activity->setTitle('Activity 11');
         $activity->setDescription('Act11');
-        $activity->setArrivalTime(new \DateTime('2022-05-17 14:00:00'));
-        $activity->setDepartureTime(new \DateTime('2022-04-17 12:05:22'));
+        $activity->setArrivalTime(new \DateTime('2022-05-30 14:00:00'));
+        $activity->setDepartureTime(new \DateTime('2022-05-30 12:05:22'));
         $activity->setDistance(349.00);
         $activity->setSpeedAverage(27.00);
         $activity->setSpeedMax(47.00);

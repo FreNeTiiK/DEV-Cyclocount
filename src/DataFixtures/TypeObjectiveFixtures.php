@@ -25,6 +25,16 @@ class TypeObjectiveFixtures extends Fixture
         $this->addReference('vit', $typeObj);
         $manager->persist($typeObj);
 
+        $typeObj = new TypeObjective();
+        $typeObj->setName('Sorties');
+        $this->addReference('sorties', $typeObj);
+        $manager->persist($typeObj);
+
+        $typeObj = new TypeObjective();
+        $typeObj->setName('Denivele');
+        $this->addReference('denivele', $typeObj);
+        $manager->persist($typeObj);
+
         $manager->flush();
     }
 }
