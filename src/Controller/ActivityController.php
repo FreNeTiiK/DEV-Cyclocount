@@ -10,6 +10,7 @@ use App\Entity\User;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * @Route("/api/activities")
@@ -59,6 +60,18 @@ class ActivityController extends AbstractFOSRestController
         $activityBusiness->updateActivity($activity, $updateActivity);
 
         $view = $this->view();
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Route("/kmChart", methods={"GET"})
+     */
+    public function getKmChart(ActivityBusiness $activityBusiness, TokenStorageInterface $tokenStorage)
+    {
+        $user = $tokenStorage->getToken()->getUser();
+        $kmChartData = $activityBusiness->getChartKms($user);
+
+        $view = $this->view($kmChartData);
         return $this->handleView($view);
     }
 

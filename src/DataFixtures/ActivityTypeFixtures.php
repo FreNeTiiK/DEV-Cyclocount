@@ -12,11 +12,13 @@ class ActivityTypeFixtures extends Fixture
     {
         $activityType = new ActivityType();
         $activityType->setName('Vélo');
+        $activityType->setCode('bike');
         $this->addReference('velo', $activityType);
         $manager->persist($activityType);
 
         $activityType = new ActivityType();
-        $activityType->setName('Course');
+        $activityType->setName('Running');
+        $activityType->setCode('running');
         $this->addReference('course', $activityType);
         $manager->persist($activityType);
 

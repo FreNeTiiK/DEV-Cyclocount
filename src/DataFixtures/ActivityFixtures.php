@@ -9,7 +9,6 @@ use Doctrine\Persistence\ObjectManager;
 
 class ActivityFixtures extends Fixture implements DependentFixtureInterface
 {
-
     public function load(ObjectManager $manager): void
     {
         $activity = new Activity();
@@ -191,7 +190,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity = new Activity();
         $activity->setTitle('Activity 15');
         $activity->setDescription('Act15');
-        $activity->setArrivalTime(new \DateTime('2022-047-17 14:00:00'));
+        $activity->setArrivalTime(new \DateTime('2022-04-17 14:00:00'));
         $activity->setDepartureTime(new \DateTime('2022-07-17 12:05:22'));
         $activity->setDistance(208.00);
         $activity->setSpeedAverage(27.00);

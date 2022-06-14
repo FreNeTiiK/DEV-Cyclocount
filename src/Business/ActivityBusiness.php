@@ -5,9 +5,7 @@ namespace App\Business;
 
 
 use App\Entity\Activity;
-use App\Entity\Equipment;
 use App\Entity\RequestBody\NewActivity;
-use App\Entity\RequestBody\NewEquipment;
 use App\Entity\RequestBody\UpdateActivity;
 use App\Entity\User;
 use App\Repository\ActivityRepository;
@@ -16,6 +14,7 @@ use App\Repository\DifficultyRepository;
 use App\Repository\EquipmentRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class ActivityBusiness
 {
@@ -130,14 +129,25 @@ class ActivityBusiness
         $this->em->flush();
     }
 
-    public function getChartKms()
+    public function getChartKms(UserInterface $user): array
     {
-        $kilometers = [];
+        $kmChartData = [];
         $activityTypes = $this->activityTypeRepository->findAll();
 
         foreach ($activityTypes as $activityType) {
+            $activities = $this->activityRepository->findLastActivities($user, $activityType, 30);
+            $data = [];
 
-            $kilometers['series'][$activityType->getName()] = ['name' => 'kilomètres', 'data' => $data];
+            /**
+             * @var $activities Activity[]
+             */
+            foreach ($activities as $activity) {
+                $data[] = ['x' => $activity->getDepartureTime(), 'y' => $activity->getDistance()];
+            }
+
+            $kmChartData['km']['series'][$activityType->getCode()][] = ['name' => 'Kilomètres', 'data' => $data];
         }
+
+        return $kmChartData;
     }
 }

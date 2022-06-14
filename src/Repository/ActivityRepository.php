@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Activity;
 use App\Entity\ActivityType;
+use App\Entity\User;
 use DateTimeZone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -42,14 +43,14 @@ class ActivityRepository extends ServiceEntityRepository
         }
     }
 
-    public function findLastActivities(ActivityType $activityType, int $numberLastActivities): array
+    public function findLastActivities(User $user, ActivityType $activityType, int $numberLastActivities): array
     {
-        $now = new DateTime('now', new DateTimeZone('Europe/Paris'));
-
         return $this->createQueryBuilder('a')
             ->andWhere('a.activityType = :activityType')
+            ->andWhere('a.userLink = :user')
             ->setMaxResults($numberLastActivities)
-            ->setParameters(['activityType' => $activityType])
+            ->orderBy('a.departureTime', 'DESC')
+            ->setParameters(['activityType' => $activityType, 'user' => $user])
             ->getQuery()
             ->getResult();
     }
