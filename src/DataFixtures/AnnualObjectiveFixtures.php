@@ -22,7 +22,7 @@ class AnnualObjectiveFixtures extends Fixture implements DependentFixtureInterfa
         $annualObj = new AnnualObjective();
         $annualObj->setName('Vitesse Moyenne annuelle');
         $annualObj->setQuantity(27);
-        $annualObj->setActivityType($this->getReference('velo'));
+        $annualObj->setActivityType($this->getReference('bike'));
         $annualObj->setTypeObjective($this->getReference('vit'));
         $annualObj->setUserLink($this->getReference('simon'));
         $manager->persist($annualObj);
@@ -30,7 +30,7 @@ class AnnualObjectiveFixtures extends Fixture implements DependentFixtureInterfa
         $annualObj = new AnnualObjective();
         $annualObj->setName('Temps annuel');
         $annualObj->setQuantity(500);
-        $annualObj->setActivityType($this->getReference('velo'));
+        $annualObj->setActivityType($this->getReference('bike'));
         $annualObj->setTypeObjective($this->getReference('duration'));
         $annualObj->setUserLink($this->getReference('simon'));
         $manager->persist($annualObj);
@@ -38,7 +38,7 @@ class AnnualObjectiveFixtures extends Fixture implements DependentFixtureInterfa
         $annualObj = new AnnualObjective();
         $annualObj->setName('Denivelé annuel');
         $annualObj->setQuantity(500);
-        $annualObj->setActivityType($this->getReference('velo'));
+        $annualObj->setActivityType($this->getReference('bike'));
         $annualObj->setTypeObjective($this->getReference('denivele'));
         $annualObj->setUserLink($this->getReference('simon'));
         $manager->persist($annualObj);
@@ -46,7 +46,7 @@ class AnnualObjectiveFixtures extends Fixture implements DependentFixtureInterfa
         $annualObj = new AnnualObjective();
         $annualObj->setName('Nombres de sorties annuelles');
         $annualObj->setQuantity(100);
-        $annualObj->setActivityType($this->getReference('velo'));
+        $annualObj->setActivityType($this->getReference('bike'));
         $annualObj->setTypeObjective($this->getReference('sorties'));
         $annualObj->setUserLink($this->getReference('simon'));
         $manager->persist($annualObj);

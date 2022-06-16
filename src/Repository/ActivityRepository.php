@@ -4,11 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Activity;
 use App\Entity\ActivityType;
-use App\Entity\User;
-use DateTimeZone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Activity>
@@ -43,7 +41,7 @@ class ActivityRepository extends ServiceEntityRepository
         }
     }
 
-    public function findLastActivities(User $user, ActivityType $activityType, int $numberLastActivities): array
+    public function findLastActivities(UserInterface $user, ActivityType $activityType, ?int $numberLastActivities): array
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.activityType = :activityType')

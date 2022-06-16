@@ -5,6 +5,7 @@ namespace App\Business;
 
 
 use App\Entity\Activity;
+use App\Entity\ActivityType;
 use App\Entity\RequestBody\NewActivity;
 use App\Entity\RequestBody\UpdateActivity;
 use App\Entity\User;
@@ -129,25 +130,39 @@ class ActivityBusiness
         $this->em->flush();
     }
 
-    public function getChartKms(UserInterface $user): array
+
+    public function getCharts(UserInterface $user, ActivityType $activityType): array
     {
-        $kmChartData = [];
-        $activityTypes = $this->activityTypeRepository->findAll();
+        foreach (['all', 30, 15] as $activityNumber) {
+            $activities = $this->activityRepository->findLastActivities(
+                $user,
+                $activityType,
+                $activityNumber === 'all' ? null : $activityNumber
+            );
 
-        foreach ($activityTypes as $activityType) {
-            $activities = $this->activityRepository->findLastActivities($user, $activityType, 30);
-            $data = [];
-
+            $kmData = $averageSpeedData = $maxSpeedData = $consumedCaloriesData = $averagePowerData = [];
             /**
              * @var $activities Activity[]
              */
             foreach ($activities as $activity) {
-                $data[] = ['x' => $activity->getDepartureTime(), 'y' => $activity->getDistance()];
+                $kmData[] = ['x' => $activity->getDepartureTime(), 'y' => $activity->getDistance()];
+                $averageSpeedData[] = ['x' => $activity->getDepartureTime(), 'y' => $activity->getSpeedAverage()];
+                $maxSpeedData[] = ['x' => $activity->getDepartureTime(), 'y' => $activity->getSpeedMax()];
+                $consumedCaloriesData[] = ['x' => $activity->getDepartureTime(), 'y' => $activity->getCaloriesConsumed()];
+                $averagePowerData[] = ['x' => $activity->getDepartureTime(), 'y' => $activity->getPowerAverage()];
             }
 
-            $kmChartData['km']['series'][$activityType->getCode()][] = ['name' => 'Kilomètres', 'data' => $data];
+            $kmsChartData['series'][$activityNumber][] = ['name' => 'Kilomètres', 'data' => $kmData];
+            $speedChartData['series'][$activityNumber][] = ['name' => 'Vitesse maximale', 'data' => $maxSpeedData];
+            $speedChartData['series'][$activityNumber][] = ['name' => 'Vitesse moyenne', 'data' => $averageSpeedData];
+            $powerChartData['series'][$activityNumber][] = ['name' => 'Calories consommées', 'data' => $consumedCaloriesData];
+            $powerChartData['series'][$activityNumber][] = ['name' => 'Puissance moyenne', 'data' => $averagePowerData];
         }
 
-        return $kmChartData;
+        return [
+            'km' => $kmsChartData,
+            'speed' => $speedChartData,
+            'power' => $powerChartData,
+        ];
     }
 }
