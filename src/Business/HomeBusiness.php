@@ -71,7 +71,7 @@ class HomeBusiness
                 return $activity->getActivityType() === $activityType;
             });
 
-            $activityTypeChart['series'][] = count($activitiesByType) * 100 / count($activities);
+            $activityTypeChart['series'][] = round(count($activitiesByType) * 100 / count($activities), 2);
             $activityTypeChart['labels'][] = $activityType->getName();
         }
 
@@ -88,7 +88,7 @@ class HomeBusiness
                 return $activity->getDifficulty() === $difficulty;
             });
 
-            $activityDifficultyChart['series'][] = count($activitiesByDifficulty) * 100 / count($activities);
+            $activityDifficultyChart['series'][] = round(count($activitiesByDifficulty) * 100 / count($activities), 2);
             $activityDifficultyChart['labels'][] = $difficulty->getName();
         }
 
