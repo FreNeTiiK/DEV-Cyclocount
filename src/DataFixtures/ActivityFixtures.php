@@ -26,6 +26,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
     {
         $activityTypes = $this->activityTypeRepository->findAll();
         $titles = ['The Grand Tour', 'The Petit Tour', 'The Moyen Tour', 'The Giga Tour', 'The Minuscule Tour'];
+        $difficulties = ['easy', 'normal', 'difficult'];
 
         foreach ($activityTypes as $activityType) {
             for($i = 0; $i < 40; $i++) {
@@ -46,6 +47,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
                 $activity->setPowerAverage(rand(50, 150));
                 $activity->setCaloriesConsumed(rand(150, 800));
                 $activity->setActivityType($this->getReference($activityType->getCode()));
+                $activity->setDifficulty($this->getReference($difficulties[array_rand($difficulties)]));
                 $activity->setEquipment($this->getReference($activityType->getCode() === 'running' ? 'mavicshoes' : 'mavicbike'));
                 $activity->setUserLink($this->getReference('simon'));
                 $manager->persist($activity);
