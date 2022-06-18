@@ -8,6 +8,7 @@ use App\Entity\RequestBody\NewAnnualObjective;
 use App\Entity\RequestBody\UpdateAnnualObjective;
 use App\Entity\User;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -19,7 +20,7 @@ class AnnualObjectiveController extends AbstractFOSRestController
     /**
      * @Route("", methods={"GET"})
      */
-    public function getAnnualObjectives(AnnualObjectiveBusiness $annualObjectiveBusiness)
+    public function getAnnualObjectives(AnnualObjectiveBusiness $annualObjectiveBusiness): Response
     {
         $annualObjectives = $annualObjectiveBusiness->getAnnualObjectives();
 
@@ -30,7 +31,10 @@ class AnnualObjectiveController extends AbstractFOSRestController
     /**
      * @Route("/{user}", methods={"GET"})
      */
-    public function getAnnualObjectivesByUser(AnnualObjectiveBusiness $annualObjectiveBusiness, User $user)
+    public function getAnnualObjectivesByUser(
+        AnnualObjectiveBusiness $annualObjectiveBusiness,
+        User $user
+    ): Response
     {
         $annualObjectives = $annualObjectiveBusiness->getAnnualObjectivesByUser($user);
 
@@ -42,7 +46,10 @@ class AnnualObjectiveController extends AbstractFOSRestController
      * @Route("", methods={"POST"})
      * @ParamConverter("newAnnualObjective", class="App\Entity\RequestBody\NewAnnualObjective", converter="fos_rest.request_body")
      */
-    public function addAnnualObjective(AnnualObjectiveBusiness $annualObjectiveBusiness, NewAnnualObjective $newAnnualObjective)
+    public function addAnnualObjective(
+        AnnualObjectiveBusiness $annualObjectiveBusiness,
+        NewAnnualObjective $newAnnualObjective
+    ): Response
     {
         $annualObjective = $annualObjectiveBusiness->addAnnualObjective($newAnnualObjective);
 
@@ -58,7 +65,8 @@ class AnnualObjectiveController extends AbstractFOSRestController
         AnnualObjectiveBusiness $annualObjectiveBusiness,
         AnnualObjective $annualObjective,
         UpdateAnnualObjective $updateAnnualObjective
-    ) {
+    ): Response
+    {
         $annualObjective = $annualObjectiveBusiness->updateAnnualObjective($annualObjective, $updateAnnualObjective);
 
         $view = $this->view($annualObjective);
@@ -68,12 +76,14 @@ class AnnualObjectiveController extends AbstractFOSRestController
     /**
      * @Route("/{annualObjective}", methods={"DELETE"})
      */
-    public function delAnnualObjective(AnnualObjectiveBusiness $annualObjectiveBusiness, AnnualObjective $annualObjective)
+    public function delAnnualObjective(
+        AnnualObjectiveBusiness $annualObjectiveBusiness,
+        AnnualObjective $annualObjective
+    ): Response
     {
         $annualObjectiveBusiness->delAnnualObjective($annualObjective);
 
         $view = $this->view();
         return $this->handleView($view);
     }
-
 }

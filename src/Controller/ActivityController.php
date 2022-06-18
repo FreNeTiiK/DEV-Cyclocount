@@ -66,21 +66,6 @@ class ActivityController extends AbstractFOSRestController
     }
 
     /**
-     * @Route("/charts/{activityType}", methods={"GET"})
-     */
-    public function getKmChart(
-        ActivityBusiness $activityBusiness,
-        TokenStorageInterface $tokenStorage,
-        ActivityType $activityType
-    ): Response {
-        $user = $tokenStorage->getToken()->getUser();
-        $kmChartData = $activityBusiness->getCharts($user, $activityType);
-
-        $view = $this->view($kmChartData);
-        return $this->handleView($view);
-    }
-
-    /**
      * @Route("/{user}", methods={"GET"})
      */
     public function getActivityByUser(ActivityBusiness $activityBusiness, User $user): Response

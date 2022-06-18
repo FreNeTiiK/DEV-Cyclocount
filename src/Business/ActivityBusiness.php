@@ -5,7 +5,6 @@ namespace App\Business;
 
 
 use App\Entity\Activity;
-use App\Entity\ActivityType;
 use App\Entity\RequestBody\NewActivity;
 use App\Entity\RequestBody\UpdateActivity;
 use App\Entity\User;
@@ -15,7 +14,6 @@ use App\Repository\DifficultyRepository;
 use App\Repository\EquipmentRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class ActivityBusiness
 {
@@ -128,41 +126,5 @@ class ActivityBusiness
     {
         $this->em->remove($activity);
         $this->em->flush();
-    }
-
-
-    public function getCharts(UserInterface $user, ActivityType $activityType): array
-    {
-        foreach (['all', 30, 15] as $activityNumber) {
-            $activities = $this->activityRepository->findLastActivities(
-                $user,
-                $activityType,
-                $activityNumber === 'all' ? null : $activityNumber
-            );
-
-            $kmData = $averageSpeedData = $maxSpeedData = $consumedCaloriesData = $averagePowerData = [];
-            /**
-             * @var $activities Activity[]
-             */
-            foreach ($activities as $activity) {
-                $kmData[] = ['x' => $activity->getDepartureTime(), 'y' => $activity->getDistance()];
-                $averageSpeedData[] = ['x' => $activity->getDepartureTime(), 'y' => $activity->getSpeedAverage()];
-                $maxSpeedData[] = ['x' => $activity->getDepartureTime(), 'y' => $activity->getSpeedMax()];
-                $consumedCaloriesData[] = ['x' => $activity->getDepartureTime(), 'y' => $activity->getCaloriesConsumed()];
-                $averagePowerData[] = ['x' => $activity->getDepartureTime(), 'y' => $activity->getPowerAverage()];
-            }
-
-            $kmsChartData['series'][$activityNumber][] = ['name' => 'Kilomètres', 'data' => $kmData];
-            $speedChartData['series'][$activityNumber][] = ['name' => 'Vitesse maximale', 'data' => $maxSpeedData];
-            $speedChartData['series'][$activityNumber][] = ['name' => 'Vitesse moyenne', 'data' => $averageSpeedData];
-            $powerChartData['series'][$activityNumber][] = ['name' => 'Calories consommées', 'data' => $consumedCaloriesData];
-            $powerChartData['series'][$activityNumber][] = ['name' => 'Puissance moyenne', 'data' => $averagePowerData];
-        }
-
-        return [
-            'km' => $kmsChartData,
-            'speed' => $speedChartData,
-            'power' => $powerChartData,
-        ];
     }
 }

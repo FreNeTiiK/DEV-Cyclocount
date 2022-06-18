@@ -13,14 +13,14 @@ class AnnualObjectiveFixtures extends Fixture implements DependentFixtureInterfa
     public function load(ObjectManager $manager): void
     {
         $annualObj = new AnnualObjective();
-        $annualObj->setName('Km annuels');
+        $annualObj->setName('Kms annuels');
         $annualObj->setQuantity(1500);
         $annualObj->setTypeObjective($this->getReference('km'));
         $annualObj->setUserLink($this->getReference('simon'));
         $manager->persist($annualObj);
 
         $annualObj = new AnnualObjective();
-        $annualObj->setName('Vitesse Moyenne annuelle');
+        $annualObj->setName('Vitesse moyenne annuelle');
         $annualObj->setQuantity(27);
         $annualObj->setActivityType($this->getReference('bike'));
         $annualObj->setTypeObjective($this->getReference('vit'));
@@ -44,7 +44,7 @@ class AnnualObjectiveFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($annualObj);
 
         $annualObj = new AnnualObjective();
-        $annualObj->setName('Nombres de sorties annuelles');
+        $annualObj->setName('Sorties annuelles');
         $annualObj->setQuantity(100);
         $annualObj->setActivityType($this->getReference('bike'));
         $annualObj->setTypeObjective($this->getReference('sorties'));
