@@ -1,11 +1,10 @@
 <?php
 
-
 namespace App\Business;
 
-use App\Entity\RequestBody\ChangePasswordUser;
-use App\Entity\RequestBody\NewUser;
-use App\Entity\RequestBody\UpdateUser;
+use App\Dto\ChangePasswordUser;
+use App\Dto\NewUser;
+use App\Dto\UpdateUser;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,26 +12,15 @@ use InvalidArgumentException;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserBusiness
+readonly class UserBusiness
 {
-    private $userRepository;
-    private $em;
-    private $encoder;
-    private $JWTManager;
-
-    public function __construct
-    (
-        UserRepository $userRepository,
-        EntityManagerInterface $em,
-        UserPasswordHasherInterface $encoder,
-        JWTTokenManagerInterface $JWTManager
+    public function __construct(
+        private UserRepository $userRepository,
+        private EntityManagerInterface $em,
+        private UserPasswordHasherInterface $encoder,
+        private JWTTokenManagerInterface $JWTManager
     )
-    {
-        $this->userRepository = $userRepository;
-        $this->em = $em;
-        $this->encoder = $encoder;
-        $this->JWTManager = $JWTManager;
-    }
+    {}
 
     public function getUserByUsername(string $username): User
     {
@@ -46,17 +34,17 @@ class UserBusiness
 
     public function register(NewUser $newUser): array
     {
-        $userByUsername = $this->userRepository->findOneBy(['username' => $newUser->getUsername()]);
+        $userByUsername = $this->userRepository->findOneBy(['username' => $newUser->username]);
         if ($userByUsername !== null) {
             throw new InvalidArgumentException('Ce nom d\'utilisateur existe déjà !');
         }
         $user = new User();
-        $user->setFirstName($newUser->getFirstName());
-        $user->setLastName($newUser->getLastName());
-        $user->setUsername($newUser->getUsername());
-        $user->setBirthday($newUser->getBirthday());
-        $user->setAddress($newUser->getAddress());
-        $encodedPassword = $this->encoder->hashPassword($user, $newUser->getPassword());
+        $user->setFirstName($newUser->firstName);
+        $user->setLastName($newUser->lastName);
+        $user->setUsername($newUser->username);
+        $user->setBirthday($newUser->birthday);
+        $user->setAddress($newUser->address);
+        $encodedPassword = $this->encoder->hashPassword($user, $newUser->password);
         $user->setPassword($encodedPassword);
 
         $this->em->persist($user);
@@ -67,11 +55,11 @@ class UserBusiness
 
     public function updateUser(User $user, UpdateUser $updateUser): User
     {
-        $updateUser->getFirstName() === null ?: $user->setFirstName($updateUser->getFirstName());
-        $updateUser->getLastName() === null ?: $user->setLastName($updateUser->getLastName());
-        $updateUser->getUsername() === null ?: $user->setUsername($updateUser->getUsername());
-        $updateUser->getBirthday() === null ?: $user->setBirthday($updateUser->getBirthday());
-        $updateUser->getAddress() === null ?: $user->setAddress($updateUser->getAddress());
+        $updateUser->firstName === null ?: $user->setFirstName($updateUser->firstName);
+        $updateUser->lastName === null ?: $user->setLastName($updateUser->lastName);
+        $updateUser->username === null ?: $user->setUsername($updateUser->username);
+        $updateUser->birthday === null ?: $user->setBirthday($updateUser->birthday);
+        $updateUser->address === null ?: $user->setAddress($updateUser->address);
         $this->em->persist($user);
         $this->em->flush();
 
@@ -80,14 +68,14 @@ class UserBusiness
 
     public function changePassword(User $user, ChangePasswordUser $changePasswordUser): void
     {
-        $plainCurrentPassword = $changePasswordUser->getCurrentPassword();
+        $plainCurrentPassword = $changePasswordUser->currentPassword;
         $isValidPassword = $this->encoder->isPasswordValid($user, $plainCurrentPassword);
 
         if (!$isValidPassword) {
             throw new InvalidArgumentException('Le mot de passe actuel est incorrect');
         }
 
-        $plainNewPassword = $changePasswordUser->getNewPassword();
+        $plainNewPassword = $changePasswordUser->newPassword;
         $encodedNewPassword = $this->encoder->hashPassword($user, $plainNewPassword);
         $user->setPassword($encodedNewPassword);
         $this->em->persist($user);

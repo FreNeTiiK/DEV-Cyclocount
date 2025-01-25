@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Business;
-
 
 use App\Entity\Activity;
 use App\Entity\ActivityType;
@@ -11,20 +9,13 @@ use App\Repository\AnnualObjectiveRepository;
 use Exception;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class StatisticBusiness
+readonly class StatisticBusiness
 {
-    private $activityRepository;
-    private $annualObjectiveRepository;
-
-    public function __construct
-    (
-        ActivityRepository $activityRepository,
-        AnnualObjectiveRepository $annualObjectiveRepository
+    public function __construct(
+        private ActivityRepository $activityRepository,
+        private AnnualObjectiveRepository $annualObjectiveRepository
     )
-    {
-        $this->activityRepository = $activityRepository;
-        $this->annualObjectiveRepository = $annualObjectiveRepository;
-    }
+    {}
 
     public function getCharts(UserInterface $user, ActivityType $activityType): array
     {
@@ -92,7 +83,7 @@ class StatisticBusiness
                     foreach ($currentYearActivities as $activity) {
                         $totalAverageSpeed += $activity->getSpeedAverage();
                     }
-                    $total = $totalAverageSpeed / count($currentYearActivities);
+                    $total = count($currentYearActivities) !== 0 ? $totalAverageSpeed / count($currentYearActivities) : 0;
                     break;
                 case 'Sorties':
                     $total = count($currentYearActivities);

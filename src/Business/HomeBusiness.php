@@ -1,31 +1,20 @@
 <?php
 
-
 namespace App\Business;
-
 
 use App\Repository\ActivityRepository;
 use App\Repository\ActivityTypeRepository;
 use App\Repository\DifficultyRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class HomeBusiness
+readonly class HomeBusiness
 {
-    private $activityRepository;
-    private $activityTypeRepository;
-    private $difficultyRepository;
-
-    public function __construct
-    (
-        ActivityRepository $activityRepository,
-        ActivityTypeRepository $activityTypeRepository,
-        DifficultyRepository $difficultyRepository
+    public function __construct(
+        private ActivityRepository $activityRepository,
+        private ActivityTypeRepository $activityTypeRepository,
+        private DifficultyRepository $difficultyRepository
     )
-    {
-        $this->activityRepository = $activityRepository;
-        $this->activityTypeRepository = $activityTypeRepository;
-        $this->difficultyRepository = $difficultyRepository;
-    }
+    {}
 
     public function getHomeDataWidgets(UserInterface $user): array
     {

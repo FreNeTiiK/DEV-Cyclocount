@@ -5,45 +5,40 @@ namespace App\Controller;
 use App\Business\StatisticBusiness;
 use App\Entity\ActivityType;
 use Exception;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-/**
- * @Route("/api/statistics")
- */
-class StatisticController extends AbstractFOSRestController
+#[Route('/api/statistics')]
+class StatisticController extends AbstractController
 {
-    /**
-     * @Route("/charts/{activityType}", methods={"GET"})
-     */
+    #[Route('/charts/{activityType}', methods: ['GET'])]
     public function getCharts(
         StatisticBusiness $statisticBusiness,
         TokenStorageInterface $tokenStorage,
         ActivityType $activityType
-    ): Response {
+    ): Response
+    {
         $user = $tokenStorage->getToken()->getUser();
         $chartsData = $statisticBusiness->getCharts($user, $activityType);
 
-        $view = $this->view($chartsData);
-        return $this->handleView($view);
+        return $this->json($chartsData);
     }
 
     /**
-     * @Route("/annualObjectives/{activityType}", methods={"GET"})
      * @throws Exception
      */
+    #[Route('/annualObjectives/{activityType}', methods: ['GET'])]
     public function getAnnualObjectiveChart(
         StatisticBusiness $statisticBusiness,
         TokenStorageInterface $tokenStorage,
         ActivityType $activityType
-    ): Response {
+    ): Response
+    {
         $user = $tokenStorage->getToken()->getUser();
         $annualObjectivesChartData = $statisticBusiness->getAnnualObjectiveChart($user, $activityType);
 
-        $view = $this->view($annualObjectivesChartData);
-        return $this->handleView($view);
+        return $this->json($annualObjectivesChartData);
     }
 }

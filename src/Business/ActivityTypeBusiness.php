@@ -4,17 +4,12 @@ namespace App\Business;
 
 use App\Repository\ActivityTypeRepository;
 
-class ActivityTypeBusiness
+readonly class ActivityTypeBusiness
 {
-    private $activityTypeRepository;
-
-    public function __construct
-    (
-        ActivityTypeRepository $activityTypeRepository
+    public function __construct(
+        private ActivityTypeRepository $activityTypeRepository
     )
-    {
-        $this->activityTypeRepository = $activityTypeRepository;
-    }
+    {}
 
     public function getActivityTypes(): array
     {

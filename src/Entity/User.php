@@ -3,58 +3,49 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="`user`")
- */
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 180)]
+    private ?string $firstName = null;
+
+    #[ORM\Column(length: 180)]
+    private ?string $lastName = null;
+
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $username = null;
 
     /**
-     * @ORM\Column(type="string", length=180)
+     * @var list<string> The user roles
      */
-    private $firstName;
+    #[ORM\Column]
+    private array $roles = [];
 
-    /**
-     * @ORM\Column(type="string", length=180)
-     */
-    private $lastName;
-
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
-    private $username;
-
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $address;
+    #[ORM\Column(nullable: true)]
+    private ?string $address = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $birthday;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $birthday = null;
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
      */
-    private $password;
+    #[ORM\Column]
+    private ?string $password = null;
 
     public function getId(): ?int
     {
@@ -158,7 +149,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
@@ -175,12 +166,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    public function getBirthday(): ?\DateTime
+    public function getBirthday(): \DateTimeInterface
     {
         return $this->birthday;
     }
 
-    public function setBirthday(?\DateTime $birthday): self
+    public function setBirthday(?\DateTimeInterface $birthday): self
     {
         $this->birthday = $birthday;
 

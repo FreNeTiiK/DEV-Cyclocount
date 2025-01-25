@@ -3,75 +3,68 @@
 namespace App\Controller;
 
 use App\Business\EquipmentBusiness;
+use App\Dto\NewEquipment;
+use App\Dto\UpdateEquipment;
 use App\Entity\ActivityType;
 use App\Entity\Equipment;
-use App\Entity\RequestBody\NewEquipment;
-use App\Entity\RequestBody\UpdateEquipment;
 use App\Entity\User;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * @Route("/api/equipments")
- */
-class EquipmentController extends AbstractFOSRestController
+#[Route('/api/equipments')]
+class EquipmentController extends AbstractController
 {
-    /**
-     * @Route("", methods={"GET"})
-     */
-    public function getEquipments(EquipmentBusiness $equipmentBusiness)
+    #[Route('', methods: ['GET'])]
+    public function getEquipments(EquipmentBusiness $equipmentBusiness): Response
     {
         $equipments = $equipmentBusiness->getEquipments();
 
-        $view = $this->view($equipments);
-        return $this->handleView($view);
+        return $this->json($equipments, 200, [], ['groups' => '*']);
     }
 
-    /**
-     * @Route("/{user}/{activityType}", methods={"GET"})
-     */
-    public function getEquipmentsByUser(EquipmentBusiness $equipmentBusiness, User $user, ?ActivityType $activityType = null)
+    #[Route('/{user}/{activityType}', methods: ['GET'])]
+    public function getEquipmentsByUser(
+        EquipmentBusiness $equipmentBusiness,
+        User $user,
+        ?ActivityType $activityType = null
+    ): Response
     {
         $equipments = $equipmentBusiness->getEquipmentsByUser($user, $activityType);
 
-        $view = $this->view($equipments);
-        return $this->handleView($view);
+        return $this->json($equipments, 200, [], ['groups' => '*']);
     }
 
-    /**
-     * @Route("", methods={"POST"})
-     * @ParamConverter("newEquipment", class="App\Entity\RequestBody\NewEquipment", converter="fos_rest.request_body")
-     */
-    public function addEquipment(EquipmentBusiness $equipmentBusiness, NewEquipment $newEquipment)
+    #[Route('', methods: ['POST'])]
+    public function addEquipment(
+        EquipmentBusiness $equipmentBusiness,
+        #[MapRequestPayload] NewEquipment $newEquipment
+    ): Response
     {
         $equipment = $equipmentBusiness->addEquipment($newEquipment);
 
-        $view = $this->view($equipment);
-        return $this->handleView($view);
+        return $this->json($equipment, 201, [], ['groups' => '*']);
     }
 
-    /**
-     * @Route("/{equipment}", methods={"PUT"})
-     * @ParamConverter("updateEquipment", class="App\Entity\RequestBody\UpdateEquipment", converter="fos_rest.request_body")
-     */
-    public function updateEquipment(EquipmentBusiness $equipmentBusiness, Equipment $equipment, UpdateEquipment $updateEquipment)
+    #[Route('/{equipment}', methods: ['PUT'])]
+    public function updateEquipment(
+        EquipmentBusiness $equipmentBusiness,
+        Equipment $equipment,
+        #[MapRequestPayload] UpdateEquipment $updateEquipment
+    ): Response
     {
         $equipment = $equipmentBusiness->updateEquipment($equipment, $updateEquipment);
 
-        $view = $this->view($equipment);
-        return $this->handleView($view);
+        return $this->json($equipment, 200, [], ['groups' => '*']);
     }
 
-    /**
-     * @Route("/{equipment}", methods={"DELETE"})
-     */
-    public function delEquipment(EquipmentBusiness $equipmentBusiness, Equipment $equipment)
+    #[Route('/{equipment}', methods: ['DELETE'])]
+    public function delEquipment(EquipmentBusiness $equipmentBusiness, Equipment $equipment): Response
     {
         $equipmentBusiness->delEquipment($equipment);
 
-        $view = $this->view();
-        return $this->handleView($view);
+        return new Response();
     }
 
 }

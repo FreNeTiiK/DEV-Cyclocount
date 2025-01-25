@@ -3,22 +3,18 @@
 namespace App\Controller;
 
 use App\Business\TypeObjectiveBusiness;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * @Route("/api/typeObjectives")
- */
-class TypeObjectiveController extends AbstractFOSRestController
+#[Route('/api/typeObjectives')]
+class TypeObjectiveController extends AbstractController
 {
-    /**
-     * @Route("", methods={"GET"})
-     */
-    public function getTypeObjectives(TypeObjectiveBusiness $typeObjectiveBusiness)
+    #[Route('', methods: ['GET'])]
+    public function getTypeObjectives(TypeObjectiveBusiness $typeObjectiveBusiness): Response
     {
         $typeObjectives = $typeObjectiveBusiness->getTypeObjectives();
 
-        $view = $this->view($typeObjectives);
-        return $this->handleView($view);
+        return $this->json($typeObjectives, 200, [], ['groups' => '*']);
     }
 }

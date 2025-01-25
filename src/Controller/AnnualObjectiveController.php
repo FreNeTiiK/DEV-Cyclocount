@@ -3,34 +3,27 @@
 namespace App\Controller;
 
 use App\Business\AnnualObjectiveBusiness;
+use App\Dto\NewAnnualObjective;
+use App\Dto\UpdateAnnualObjective;
 use App\Entity\AnnualObjective;
-use App\Entity\RequestBody\NewAnnualObjective;
-use App\Entity\RequestBody\UpdateAnnualObjective;
 use App\Entity\User;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * @Route("/api/annualObjectives")
- */
-class AnnualObjectiveController extends AbstractFOSRestController
+#[Route('/api/annualObjectives')]
+class AnnualObjectiveController extends AbstractController
 {
-    /**
-     * @Route("", methods={"GET"})
-     */
+    #[Route('', methods: ['GET'])]
     public function getAnnualObjectives(AnnualObjectiveBusiness $annualObjectiveBusiness): Response
     {
         $annualObjectives = $annualObjectiveBusiness->getAnnualObjectives();
 
-        $view = $this->view($annualObjectives);
-        return $this->handleView($view);
+        return $this->json($annualObjectives, 200, [], ['groups' => '*']);
     }
 
-    /**
-     * @Route("/{user}", methods={"GET"})
-     */
+    #[Route('/{user}', methods: ['GET'])]
     public function getAnnualObjectivesByUser(
         AnnualObjectiveBusiness $annualObjectiveBusiness,
         User $user
@@ -38,44 +31,33 @@ class AnnualObjectiveController extends AbstractFOSRestController
     {
         $annualObjectives = $annualObjectiveBusiness->getAnnualObjectivesByUser($user);
 
-        $view = $this->view($annualObjectives);
-        return $this->handleView($view);
+        return $this->json($annualObjectives, 200, [], ['groups' => '*']);
     }
 
-    /**
-     * @Route("", methods={"POST"})
-     * @ParamConverter("newAnnualObjective", class="App\Entity\RequestBody\NewAnnualObjective", converter="fos_rest.request_body")
-     */
+    #[Route('', methods: ['POST'])]
     public function addAnnualObjective(
         AnnualObjectiveBusiness $annualObjectiveBusiness,
-        NewAnnualObjective $newAnnualObjective
+        #[MapRequestPayload] NewAnnualObjective $newAnnualObjective
     ): Response
     {
         $annualObjective = $annualObjectiveBusiness->addAnnualObjective($newAnnualObjective);
 
-        $view = $this->view($annualObjective);
-        return $this->handleView($view);
+        return $this->json($annualObjective, 201, [], ['groups' => '*']);
     }
 
-    /**
-     * @Route("/{annualObjective}", methods={"PUT"})
-     * @ParamConverter("updateAnnualObjective", class="App\Entity\RequestBody\UpdateAnnualObjective", converter="fos_rest.request_body")
-     */
+    #[Route('/{annualObjective}', methods: ['PUT'])]
     public function updateAnnualObjective(
         AnnualObjectiveBusiness $annualObjectiveBusiness,
         AnnualObjective $annualObjective,
-        UpdateAnnualObjective $updateAnnualObjective
+        #[MapRequestPayload] UpdateAnnualObjective $updateAnnualObjective
     ): Response
     {
         $annualObjective = $annualObjectiveBusiness->updateAnnualObjective($annualObjective, $updateAnnualObjective);
 
-        $view = $this->view($annualObjective);
-        return $this->handleView($view);
+        return $this->json($annualObjective, 200, [], ['groups' => '*']);
     }
 
-    /**
-     * @Route("/{annualObjective}", methods={"DELETE"})
-     */
+    #[Route('/{annualObjective}', methods: ['DELETE'])]
     public function delAnnualObjective(
         AnnualObjectiveBusiness $annualObjectiveBusiness,
         AnnualObjective $annualObjective
@@ -83,7 +65,6 @@ class AnnualObjectiveController extends AbstractFOSRestController
     {
         $annualObjectiveBusiness->delAnnualObjective($annualObjective);
 
-        $view = $this->view();
-        return $this->handleView($view);
+        return new Response();
     }
 }

@@ -3,89 +3,58 @@
 namespace App\Entity;
 
 use App\Repository\ActivityRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=ActivityRepository::class)
- */
+#[ORM\Entity(repositoryClass: ActivityRepository::class)]
 class Activity
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
+    #[ORM\Column(length: 255)]
+    private ?string $title = null;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $departureTime;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $departureTime = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $arrivalTime;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $arrivalTime = null;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $distance;
+    #[ORM\Column(nullable: true)]
+    private ?float $distance = null;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $speedAverage;
+    #[ORM\Column(nullable: true)]
+    private ?float $speedAverage = null;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $speedMax;
+    #[ORM\Column(nullable: true)]
+    private ?float $speedMax = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $heightDifference;
+    #[ORM\Column(nullable: true)]
+    private ?int $heightDifference = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $powerAverage;
+    #[ORM\Column(nullable: true)]
+    private ?int $powerAverage = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $caloriesConsumed;
+    #[ORM\Column(nullable: true)]
+    private ?int $caloriesConsumed = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=ActivityType::class)
-     */
-    private $activityType;
+    #[ORM\ManyToOne]
+    private ?ActivityType $activityType = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Equipment::class)
-     */
-    private $equipment;
+    #[ORM\ManyToOne]
+    private ?Equipment $equipment = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Difficulty::class)
-     */
-    private $difficulty;
+    #[ORM\ManyToOne]
+    private ?Difficulty $difficulty = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     */
-    private $userLink;
+    #[ORM\ManyToOne]
+    private ?User $userLink = null;
 
     public function getId(): ?int
     {

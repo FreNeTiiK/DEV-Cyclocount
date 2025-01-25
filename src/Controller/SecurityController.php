@@ -3,25 +3,23 @@
 namespace App\Controller;
 
 use App\Business\UserBusiness;
-use App\Entity\RequestBody\NewUser;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use App\Dto\NewUser;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * @Route("/api")
- */
-class SecurityController extends AbstractFOSRestController
+#[Route('/api')]
+class SecurityController extends AbstractController
 {
-    /**
-     * @Route("/register", methods={"POST"})
-     * @ParamConverter("newUser", class="App\Entity\RequestBody\NewUser", converter="fos_rest.request_body")
-     */
-    public function register(UserBusiness $userBusiness, NewUser $newUser)
+    #[Route('/register', methods: ['POST'])]
+    public function register(
+        UserBusiness $userBusiness,
+        #[MapRequestPayload] NewUser $newUser
+    ): Response
     {
         $userToken = $userBusiness->register($newUser);
 
-        $view = $this->view($userToken);
-        return $this->handleView($view);
+        return $this->json($userToken);
     }
 }

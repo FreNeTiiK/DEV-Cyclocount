@@ -5,27 +5,19 @@ namespace App\Entity;
 use App\Repository\ActivityTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=ActivityTypeRepository::class)
- */
+#[ORM\Entity(repositoryClass: ActivityTypeRepository::class)]
 class ActivityType
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $code;
+    #[ORM\Column(length: 255)]
+    private ?string $code = null;
 
     public function getId(): ?int
     {

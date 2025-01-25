@@ -1,22 +1,15 @@
 <?php
 
-
 namespace App\Business;
-
 
 use App\Repository\TypeObjectiveRepository;
 
-class TypeObjectiveBusiness
+readonly class TypeObjectiveBusiness
 {
-    private $typeObjectiveRepository;
-
-    public function __construct
-    (
-        TypeObjectiveRepository $typeObjectiveRepository
+    public function __construct(
+        private TypeObjectiveRepository $typeObjectiveRepository
     )
-    {
-        $this->typeObjectiveRepository = $typeObjectiveRepository;
-    }
+    {}
 
     public function getTypeObjectives(): array
     {

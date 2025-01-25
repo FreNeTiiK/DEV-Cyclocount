@@ -1,22 +1,15 @@
 <?php
 
-
 namespace App\Business;
-
 
 use App\Repository\DifficultyRepository;
 
-class DifficultyBusiness
+readonly class DifficultyBusiness
 {
-    private $difficultyRepository;
-
-    public function __construct
-    (
-        DifficultyRepository $difficultyRepository
+    public function __construct(
+        private DifficultyRepository $difficultyRepository
     )
-    {
-        $this->difficultyRepository = $difficultyRepository;
-    }
+    {}
 
     public function getDifficulties(): array
     {

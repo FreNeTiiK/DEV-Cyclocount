@@ -3,62 +3,54 @@
 namespace App\Controller;
 
 use App\Business\UserBusiness;
-use App\Entity\RequestBody\ChangePasswordUser;
-use App\Entity\RequestBody\NewUser;
-use App\Entity\RequestBody\UpdateUser;
+use App\Dto\ChangePasswordUser;
+use App\Dto\UpdateUser;
 use App\Entity\User;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * @Route("/api/users")
- */
-class UserController extends AbstractFOSRestController
+#[Route('/api/users')]
+class UserController extends AbstractController
 {
-    /**
-     * @Route("/{username}", methods={"GET"})
-     */
-    public function getUserByUsername(UserBusiness $userBusiness, string $username)
+    #[Route('/{username}', methods: ['GET'])]
+    public function getUserByUsername(UserBusiness $userBusiness, string $username): Response
     {
         $user = $userBusiness->getUserByUsername($username);
 
-        $view = $this->view($user);
-        return $this->handleView($view);
+        return $this->json($user, 200, [], ['groups' => '*']);
     }
 
-    /**
-     * @Route("/checkUsername/{username}", methods={"GET"})
-     */
-    public function checkUsername(UserBusiness $userBusiness, string $username)
+    #[Route('/checkUsername/{username}', methods: ['GET'])]
+    public function checkUsername(UserBusiness $userBusiness, string $username): Response
     {
         $usernameExists = $userBusiness->checkUsername($username);
 
-        $view = $this->view($usernameExists);
-        return $this->handleView($view);
+        return $this->json($usernameExists, 200, [], ['groups' => '*']);
     }
 
-    /**
-     * @Route("/{user}", methods={"PUT"})
-     * @ParamConverter("updateUser", class="App\Entity\RequestBody\UpdateUser", converter="fos_rest.request_body")
-     */
-    public function updateUser(UserBusiness $userBusiness, User $user, UpdateUser $updateUser)
+    #[Route('/{user}', methods: ['PUT'])]
+    public function updateUser(
+        UserBusiness $userBusiness,
+        User $user,
+        #[MapRequestPayload] UpdateUser $updateUser
+    ): Response
     {
         $updatedUser = $userBusiness->updateUser($user, $updateUser);
 
-        $view = $this->view($user);
-        return $this->handleView($view);
+        return $this->json($updatedUser, 200, [], ['groups' => '*']);
     }
 
-    /**
-     * @Route("/changePassword/{user}", methods={"PUT"})
-     * @ParamConverter("changePasswordUser", class="App\Entity\RequestBody\ChangePasswordUser", converter="fos_rest.request_body")
-     */
-    public function changePassword(UserBusiness $userBusiness, User $user, ChangePasswordUser $changePasswordUser)
+    #[Route('/changePassword/{user}', methods: ['PUT'])]
+    public function changePassword(
+        UserBusiness $userBusiness,
+        User $user,
+        #[MapRequestPayload] ChangePasswordUser $changePasswordUser
+    ): Response
     {
         $userBusiness->changePassword($user, $changePasswordUser);
 
-        $view = $this->view();
-        return $this->handleView($view);
+        return new Response();
     }
 }

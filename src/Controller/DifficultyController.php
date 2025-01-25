@@ -3,23 +3,19 @@
 namespace App\Controller;
 
 use App\Business\DifficultyBusiness;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * @Route("/api/difficulties")
- */
-class DifficultyController extends AbstractFOSRestController
+#[Route('/api/difficulties')]
+class DifficultyController extends AbstractController
 {
-    /**
-     * @Route("", methods={"GET"})
-     */
-    public function getDifficulty(DifficultyBusiness $difficultyBusiness)
+    #[Route('', methods: ['GET'])]
+    public function getDifficulty(DifficultyBusiness $difficultyBusiness): Response
     {
         $difficulty = $difficultyBusiness->getDifficulties();
 
-        $view = $this->view($difficulty);
-        return $this->handleView($view);
+        return $this->json($difficulty, 200, [], ['groups' => '*']);
     }
 
 }

@@ -1,12 +1,10 @@
 <?php
 
-
 namespace App\Business;
 
-
+use App\Dto\NewActivity;
+use App\Dto\UpdateActivity;
 use App\Entity\Activity;
-use App\Entity\RequestBody\NewActivity;
-use App\Entity\RequestBody\UpdateActivity;
 use App\Entity\User;
 use App\Repository\ActivityRepository;
 use App\Repository\ActivityTypeRepository;
@@ -15,32 +13,17 @@ use App\Repository\EquipmentRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ActivityBusiness
+readonly class ActivityBusiness
 {
-    private $userRepository;
-    private $activityRepository;
-    private $equipmentRepository;
-    private $activityTypeRepository;
-    private $difficultyRepository;
-    private $em;
-
-    public function __construct
-    (
-        ActivityRepository $activityRepository,
-        EquipmentRepository $equipmentRepository,
-        ActivityTypeRepository $activityTypeRepository,
-        DifficultyRepository $difficultyRepository,
-        UserRepository $userRepository,
-        EntityManagerInterface $em
+    public function __construct(
+        private ActivityRepository $activityRepository,
+        private EquipmentRepository $equipmentRepository,
+        private ActivityTypeRepository $activityTypeRepository,
+        private DifficultyRepository $difficultyRepository,
+        private UserRepository $userRepository,
+        private EntityManagerInterface $em
     )
-    {
-        $this->activityRepository = $activityRepository;
-        $this->equipmentRepository = $equipmentRepository;
-        $this->activityTypeRepository = $activityTypeRepository;
-        $this->difficultyRepository = $difficultyRepository;
-        $this->userRepository = $userRepository;
-        $this->em = $em;
-    }
+    {}
 
     public function getActivity(): array
     {
@@ -55,30 +38,30 @@ class ActivityBusiness
     public function addActivity(NewActivity $newActivity): Activity
     {
         $activity = new Activity();
-        $activity->setTitle($newActivity->getTitle());
-        $activity->setDescription($newActivity->getDescription());
-        $activity->setDepartureTime($newActivity->getDepartureTime());
-        $activity->setArrivalTime($newActivity->getArrivalTime());
-        $activity->setDistance($newActivity->getDistance());
-        $activity->setSpeedAverage($newActivity->getSpeedAverage());
-        $activity->setSpeedMax($newActivity->getSpeedMax());
-        $activity->setHeightDifference($newActivity->getHeightDifference());
-        $activity->setPowerAverage($newActivity->getPowerAverage());
-        $activity->setCaloriesConsumed($newActivity->getCaloriesConsumed());
-        if ($newActivity->getActivityTypeId() !== null) {
-            $activityType = $this->activityTypeRepository->find($newActivity->getActivityTypeId());
+        $activity->setTitle($newActivity->title);
+        $activity->setDescription($newActivity->description);
+        $activity->setDepartureTime($newActivity->departureTime);
+        $activity->setArrivalTime($newActivity->arrivalTime);
+        $activity->setDistance($newActivity->distance);
+        $activity->setSpeedAverage($newActivity->speedAverage);
+        $activity->setSpeedMax($newActivity->speedMax);
+        $activity->setHeightDifference($newActivity->heightDifference);
+        $activity->setPowerAverage($newActivity->powerAverage);
+        $activity->setCaloriesConsumed($newActivity->caloriesConsumed);
+        if ($newActivity->activityTypeId !== null) {
+            $activityType = $this->activityTypeRepository->find($newActivity->activityTypeId);
             $activity->setActivityType($activityType);
         }
-        if ($newActivity->getEquipmentId() !== null) {
-            $equipment = $this->equipmentRepository->find($newActivity->getEquipmentId());
+        if ($newActivity->equipmentId !== null) {
+            $equipment = $this->equipmentRepository->find($newActivity->equipmentId);
             $activity->setEquipment($equipment);
         }
-        if ($newActivity->getDifficultyId() !== null) {
-            $difficulty = $this->difficultyRepository->find($newActivity->getDifficultyId());
+        if ($newActivity->difficultyId !== null) {
+            $difficulty = $this->difficultyRepository->find($newActivity->difficultyId);
             $activity->setDifficulty($difficulty);
         }
-        if ($newActivity->getUserId() !== null) {
-            $user = $this->userRepository->find($newActivity->getUserId());
+        if ($newActivity->userId !== null) {
+            $user = $this->userRepository->find($newActivity->userId);
             $activity->setUserLink($user);
         }
         $this->em->persist($activity);
@@ -89,31 +72,31 @@ class ActivityBusiness
 
     public function updateActivity(Activity $activity, UpdateActivity $updtActivity): Activity
     {
-        $updtActivity->getTitle() === null ?: $activity->setTitle($updtActivity->getTitle());
-        $updtActivity->getDescription() === null ?: $activity->setDescription($updtActivity->getDescription());
-        $updtActivity->getDepartureTime() === null ?: $activity->setDepartureTime($updtActivity->getDepartureTime());
-        $updtActivity->getArrivalTime() === null ?: $activity->setArrivalTime($updtActivity->getArrivalTime());
-        $updtActivity->getDistance() === null ?: $activity->setDistance($updtActivity->getDistance());
-        $updtActivity->getSpeedAverage() === null ?: $activity->setSpeedAverage($updtActivity->getSpeedAverage());
-        $updtActivity->getSpeedMax() === null ?: $activity->setSpeedMax($updtActivity->getSpeedMax());
-        $updtActivity->getHeightDifference() === null ?: $activity->setHeightDifference($updtActivity->getHeightDifference());
-        $updtActivity->getPowerAverage() === null ?: $activity->setPowerAverage($updtActivity->getPowerAverage());
-        $updtActivity->getCaloriesConsumed() === null ?: $activity->setCaloriesConsumed($updtActivity->getCaloriesConsumed());
+        $updtActivity->title === null ?: $activity->setTitle($updtActivity->title);
+        $updtActivity->description === null ?: $activity->setDescription($updtActivity->description);
+        $updtActivity->departureTime === null ?: $activity->setDepartureTime($updtActivity->departureTime);
+        $updtActivity->arrivalTime === null ?: $activity->setArrivalTime($updtActivity->arrivalTime);
+        $updtActivity->distance === null ?: $activity->setDistance($updtActivity->distance);
+        $updtActivity->speedAverage === null ?: $activity->setSpeedAverage($updtActivity->speedAverage);
+        $updtActivity->speedMax === null ?: $activity->setSpeedMax($updtActivity->speedMax);
+        $updtActivity->heightDifference === null ?: $activity->setHeightDifference($updtActivity->heightDifference);
+        $updtActivity->powerAverage === null ?: $activity->setPowerAverage($updtActivity->powerAverage);
+        $updtActivity->caloriesConsumed === null ?: $activity->setCaloriesConsumed($updtActivity->caloriesConsumed);
 
-        if ($updtActivity->getActivityTypeId() !== null) {
-            $activityType = $this->activityTypeRepository->find($updtActivity->getActivityTypeId());
+        if ($updtActivity->activityTypeId !== null) {
+            $activityType = $this->activityTypeRepository->find($updtActivity->activityTypeId);
             $activity->setActivityType($activityType);
         }
-        if ($updtActivity->getEquipmentId() !== null) {
-            $equipment = $this->equipmentRepository->find($updtActivity->getEquipmentId());
+        if ($updtActivity->equipmentId !== null) {
+            $equipment = $this->equipmentRepository->find($updtActivity->equipmentId);
             $activity->setEquipment($equipment);
         }
-        if ($updtActivity->getDifficultyId() !== null) {
-            $difficulty = $this->difficultyRepository->find($updtActivity->getDifficultyId());
+        if ($updtActivity->difficultyId !== null) {
+            $difficulty = $this->difficultyRepository->find($updtActivity->difficultyId);
             $activity->setDifficulty($difficulty);
         }
-        if ($updtActivity->getUserId() !== null) {
-            $user = $this->userRepository->find($updtActivity->getUserId());
+        if ($updtActivity->userId !== null) {
+            $user = $this->userRepository->find($updtActivity->userId);
             $activity->setUserLink($user);
         }
         $this->em->persist($activity);

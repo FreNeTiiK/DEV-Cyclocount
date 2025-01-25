@@ -1,39 +1,26 @@
 <?php
 
-
 namespace App\Business;
 
-
+use App\Dto\NewEquipment;
+use App\Dto\UpdateEquipment;
 use App\Entity\ActivityType;
 use App\Entity\Equipment;
-use App\Entity\RequestBody\NewEquipment;
-use App\Entity\RequestBody\UpdateEquipment;
 use App\Entity\User;
 use App\Repository\ActivityTypeRepository;
 use App\Repository\EquipmentRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-class EquipmentBusiness
+readonly class EquipmentBusiness
 {
-    private $userRepository;
-    private $equipmentRepository;
-    private $activityTypeRepository;
-    private $em;
-
-    public function __construct
-    (
-        EquipmentRepository $equipmentRepository,
-        ActivityTypeRepository $activityTypeRepository,
-        UserRepository $userRepository,
-        EntityManagerInterface $em
+    public function __construct(
+        private EquipmentRepository $equipmentRepository,
+        private ActivityTypeRepository $activityTypeRepository,
+        private UserRepository $userRepository,
+        private EntityManagerInterface $em
     )
-    {
-        $this->equipmentRepository = $equipmentRepository;
-        $this->activityTypeRepository = $activityTypeRepository;
-        $this->userRepository = $userRepository;
-        $this->em = $em;
-    }
+    {}
 
     public function getEquipments(): array
     {
@@ -52,11 +39,11 @@ class EquipmentBusiness
 
     public function addEquipment(NewEquipment $newEquipment): Equipment
     {
-        $user = $this->userRepository->find($newEquipment->getUserId());
-        $activity = $this->activityTypeRepository->find($newEquipment->getActivityTypeId());
+        $user = $this->userRepository->find($newEquipment->userId);
+        $activity = $this->activityTypeRepository->find($newEquipment->activityTypeId);
 
         $equipment = new Equipment();
-        $equipment->setName($newEquipment->getName());
+        $equipment->setName($newEquipment->name);
         $equipment->setActivityType($activity);
         $equipment->setUserLink($user);
         $this->em->persist($equipment);
@@ -67,13 +54,13 @@ class EquipmentBusiness
 
     public function updateEquipment(Equipment $equipment, UpdateEquipment $updateEquipment): Equipment
     {
-        $equipment->setName($updateEquipment->getName());
-        if ($updateEquipment->getActivityTypeId() !== null) {
-            $activity = $this->activityTypeRepository->find($updateEquipment->getActivityTypeId());
+        $equipment->setName($updateEquipment->name);
+        if ($updateEquipment->activityTypeId !== null) {
+            $activity = $this->activityTypeRepository->find($updateEquipment->activityTypeId);
             $equipment->setActivityType($activity);
         }
-        if ($updateEquipment->getActivityTypeId() !== null) {
-            $user = $this->userRepository->find($updateEquipment->getUserId());
+        if ($updateEquipment->userId !== null) {
+            $user = $this->userRepository->find($updateEquipment->userId);
             $equipment->setUserLink($user);
         }
         $this->em->persist($equipment);

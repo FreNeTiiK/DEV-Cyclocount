@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Activity;
 use App\Entity\ActivityType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Parameter;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -48,7 +50,10 @@ class ActivityRepository extends ServiceEntityRepository
             ->andWhere('a.userLink = :user')
             ->setMaxResults($numberLastActivities)
             ->orderBy('a.departureTime', 'DESC')
-            ->setParameters(['activityType' => $activityType, 'user' => $user])
+            ->setParameters(new ArrayCollection([
+                new Parameter('activityType', $activityType),
+                new Parameter('user', $user)
+            ]))
             ->getQuery()
             ->getResult();
     }
@@ -59,7 +64,11 @@ class ActivityRepository extends ServiceEntityRepository
             ->andWhere('a.activityType = :activityType')
             ->andWhere('a.userLink = :user')
             ->andWhere('YEAR(a.departureTime) = :year')
-            ->setParameters(['year' => $year, 'user' => $user, 'activityType' => $activityType])
+            ->setParameters(new ArrayCollection([
+                new Parameter('year', $year),
+                new Parameter('user', $user),
+                new Parameter('activityType', $activityType)
+            ]))
             ->getQuery()
             ->getResult();
     }

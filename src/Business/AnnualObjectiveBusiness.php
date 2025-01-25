@@ -1,12 +1,10 @@
 <?php
 
-
 namespace App\Business;
 
-
+use App\Dto\NewAnnualObjective;
+use App\Dto\UpdateAnnualObjective;
 use App\Entity\AnnualObjective;
-use App\Entity\RequestBody\NewAnnualObjective;
-use App\Entity\RequestBody\UpdateAnnualObjective;
 use App\Entity\User;
 use App\Repository\ActivityTypeRepository;
 use App\Repository\AnnualObjectiveRepository;
@@ -14,29 +12,16 @@ use App\Repository\TypeObjectiveRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-class AnnualObjectiveBusiness
+readonly class AnnualObjectiveBusiness
 {
-    private $userRepository;
-    private $annualObjectiveRepository;
-    private $typeObjectiveRepository;
-    private $activityTypeRepository;
-    private $em;
-
-    public function __construct
-    (
-        AnnualObjectiveRepository $annualObjectiveRepository,
-        TypeObjectiveRepository $typeObjectiveRepository,
-        ActivityTypeRepository $activityTypeRepository,
-        UserRepository $userRepository,
-        EntityManagerInterface $em
+    public function __construct(
+        private AnnualObjectiveRepository $annualObjectiveRepository,
+        private TypeObjectiveRepository $typeObjectiveRepository,
+        private ActivityTypeRepository $activityTypeRepository,
+        private UserRepository $userRepository,
+        private EntityManagerInterface $em
     )
-    {
-        $this->annualObjectiveRepository = $annualObjectiveRepository;
-        $this->typeObjectiveRepository = $typeObjectiveRepository;
-        $this->activityTypeRepository = $activityTypeRepository;
-        $this->userRepository = $userRepository;
-        $this->em = $em;
-    }
+    {}
 
     public function getAnnualObjectives(): array
     {
@@ -50,16 +35,16 @@ class AnnualObjectiveBusiness
 
     public function addAnnualObjective(NewAnnualObjective $newAnnualObjective): AnnualObjective
     {
-        $user = $this->userRepository->find($newAnnualObjective->getUserId());
-        $typeObjective = $this->typeObjectiveRepository->find($newAnnualObjective->getTypeObjectiveId());
+        $user = $this->userRepository->find($newAnnualObjective->userId);
+        $typeObjective = $this->typeObjectiveRepository->find($newAnnualObjective->typeObjectiveId);
 
         $annualObjective = new AnnualObjective();
-        $annualObjective->setName($newAnnualObjective->getName());
-        $annualObjective->setQuantity($newAnnualObjective->getQuantity());
+        $annualObjective->setName($newAnnualObjective->name);
+        $annualObjective->setQuantity($newAnnualObjective->quantity);
         $annualObjective->setTypeObjective($typeObjective);
         $annualObjective->setUserLink($user);
-        if ($newAnnualObjective->getActivityTypeId() !== null) {
-            $activityType = $this->activityTypeRepository->find($newAnnualObjective->getActivityTypeId());
+        if ($newAnnualObjective->activityTypeId !== null) {
+            $activityType = $this->activityTypeRepository->find($newAnnualObjective->activityTypeId);
             $annualObjective->setActivityType($activityType);
         }
         $this->em->persist($annualObjective);
@@ -70,18 +55,18 @@ class AnnualObjectiveBusiness
 
     public function updateAnnualObjective(AnnualObjective $annualObjective, UpdateAnnualObjective $updateAnnualObjective): AnnualObjective
     {
-        $updateAnnualObjective->getName() === null ?: $annualObjective->setName($updateAnnualObjective->getName());
-        $updateAnnualObjective->getQuantity() === null ?: $annualObjective->setQuantity($updateAnnualObjective->getQuantity());
-        if ($updateAnnualObjective->getActivityTypeId() !== null) {
-            $activityType = $this->activityTypeRepository->find($updateAnnualObjective->getActivityTypeId());
+        $updateAnnualObjective->name === null ?: $annualObjective->setName($updateAnnualObjective->name);
+        $updateAnnualObjective->quantity === null ?: $annualObjective->setQuantity($updateAnnualObjective->quantity);
+        if ($updateAnnualObjective->activityTypeId !== null) {
+            $activityType = $this->activityTypeRepository->find($updateAnnualObjective->activityTypeId);
             $annualObjective->setActivityType($activityType);
         }
-        if ($updateAnnualObjective->getTypeObjectiveId() !== null) {
-            $typeObjective = $this->typeObjectiveRepository->find($updateAnnualObjective->getTypeObjectiveId());
+        if ($updateAnnualObjective->typeObjectiveId !== null) {
+            $typeObjective = $this->typeObjectiveRepository->find($updateAnnualObjective->typeObjectiveId);
             $annualObjective->setTypeObjective($typeObjective);
         }
-        if ($updateAnnualObjective->getUserId() !== null) {
-            $user = $this->userRepository->find($updateAnnualObjective->getUserId());
+        if ($updateAnnualObjective->userId !== null) {
+            $user = $this->userRepository->find($updateAnnualObjective->userId);
             $annualObjective->setUserLink($user);
         }
         $this->em->persist($annualObjective);
