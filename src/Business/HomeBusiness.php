@@ -31,9 +31,9 @@ readonly class HomeBusiness
         }
 
         return [
-            'activity_number' => $activityNumber,
-            'total_distance' => $totalDistance,
-            'consumed_calories' => $consumedCalories,
+            'activityNumber' => $activityNumber,
+            'totalDistance' => $totalDistance,
+            'consumedCalories' => $consumedCalories,
             'time' => $time,
         ];
     }
@@ -45,7 +45,7 @@ readonly class HomeBusiness
         $activityDifficultyChart = $this->getActivityDifficultyChart($activities);
 
         return [
-            'activity_type' => $activityTypeChart,
+            'activityType' => $activityTypeChart,
             'difficulty' => $activityDifficultyChart,
         ];
     }
